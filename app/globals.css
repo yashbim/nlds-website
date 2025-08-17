@@ -3,8 +3,10 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ffffff;
-  --squid-pink: #ff6b6b;
-  --squid-teal: #4ecdc4;
+  --squid-pink: #f44786;
+  --squid-pink-bright: #ed1b76;
+  --squid-teal: #037a76;
+  --squid-teal-bright: #249f9c;
   --squid-yellow: #ffe66d;
   --squid-dark: #1a1a1a;
   --squid-gray: #2d2d2d;

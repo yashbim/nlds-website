@@ -1,81 +1,49 @@
-'use client';
-
-export default function AboutSection() {
+export default function AboutEvent() {
   return (
-    <section id="about" className="py-20 bg-squid-dark relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 neon-glow text-squid-pink">
-            About NLDS
-          </h2>
-          <div className="w-24 h-1 bg-squid-teal mx-auto"></div>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-squid-teal mb-4">
-              Welcome to the Game
-            </h3>
-            <p className="text-lg text-white/80 leading-relaxed">
-              NLDS (Next Level Digital Summit) is not just another tech conference. 
-              It's a survival game where participants compete in various challenges 
-              inspired by the iconic Squid Game series.
-            </p>
-            <p className="text-lg text-white/80 leading-relaxed">
-              From coding challenges to strategic thinking games, every participant 
-              will face unique obstacles that test their skills, creativity, and 
-              determination. Only the strongest will survive and claim the ultimate prize.
-            </p>
-            
-            <div className="grid grid-cols-2 gap-6 mt-8">
-              <div className="text-center p-6 bg-squid-gray rounded-lg">
-                <div className="text-3xl font-bold text-squid-pink mb-2">500+</div>
-                <div className="text-white/70">Participants</div>
-              </div>
-              <div className="text-center p-6 bg-squid-gray rounded-lg">
-                <div className="text-3xl font-bold text-squid-teal mb-2">24</div>
-                <div className="text-white/70">Hours</div>
-              </div>
-              <div className="text-center p-6 bg-squid-gray rounded-lg">
-                <div className="text-3xl font-bold text-squid-yellow mb-2">6</div>
-                <div className="text-white/70">Games</div>
-              </div>
-              <div className="text-center p-6 bg-squid-gray rounded-lg">
-                <div className="text-3xl font-bold text-squid-pink mb-2">$50K</div>
-                <div className="text-white/70">Prize Pool</div>
-              </div>
-            </div>
+    <section className="relative bg-black text-white py-16 px-6 md:px-12">
+      {/* Title */}
+      <div className="text-center mb-12 font-mono">
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide text-white ">
+          About NLDS
+        </h2>
+      </div>
+
+      {/* Stats Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12 font-mono">
+        {/* Item 1 */}
+        <div className="bg-gray-900 border-2 border-squid-pink hover:border-squid-teal  rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out ">
+          <div className="w-16 h-16 flex items-center justify-center border-2 border-squid-pink rounded-full mb-4">
+            <span className="text-2xl font-bold">◯</span>
           </div>
-          
-          <div className="relative">
-            {/* Game symbols visualization */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-pink">
-                <div className="text-4xl">🔴</div>
-              </div>
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-teal">
-                <div className="text-4xl">🔵</div>
-              </div>
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-yellow">
-                <div className="text-4xl">🟡</div>
-              </div>
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-pink">
-                <div className="text-4xl">🟢</div>
-              </div>
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-teal">
-                <div className="text-4xl">🟣</div>
-              </div>
-              <div className="aspect-square bg-squid-gray rounded-lg flex items-center justify-center border-2 border-squid-yellow">
-                <div className="text-4xl">⚫</div>
-              </div>
-            </div>
-            
-            {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-squid-pink rounded-full animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-squid-teal rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-            <div className="absolute top-1/2 -left-8 w-4 h-4 bg-squid-yellow rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
-          </div>
+          <h3 className="text-l font-semibold">10 Universities</h3>
         </div>
+
+        {/* Item 2 */}
+        <div className="bg-gray-900 border-2 border-squid-pink hover:border-squid-teal rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
+          <div className="w-16 h-16 flex items-center justify-center border-2 border-squid-pink rounded-full mb-4">
+            <span className="text-2xl font-bold">△</span>
+          </div>
+          <h3 className="text-l font-semibold">3 Days</h3>
+        </div>
+
+        {/* Item 3 */}
+        <div className="bg-gray-900 border-2 border-squid-pink hover:border-squid-teal rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
+          <div className="w-16 h-16 flex items-center justify-center border-2 border-squid-pink rounded-full mb-4">
+            <span className="text-2xl font-bold">◻</span>
+          </div>
+          <h3 className="text-l font-semibold">250+ Delegates</h3>
+        </div>
+      </div>
+
+      {/* About NLDS Paragraph */}
+      <div className="max-w-3xl mx-auto tex font-lato text-center">
+        <p className="text-lg leading-relaxed text-gray-300">
+          The <span className="text-squid-pink font-semibold">National Leadership Development Seminar (NLDS) </span> 
+          is one of the largest conferences organized by AIESEC in Sri Lanka, bringing together over 
+          250 delegates from more than 15 prestigious universities across the country. It serves as a 
+          platform for AIESECers from all over Sri Lanka to connect, expand their networks, and foster 
+          the development of the next generation of leaders.
+        </p>
       </div>
     </section>
   );

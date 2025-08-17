@@ -61,7 +61,7 @@ export default function HeroSection() {
         </video>
 
         {/* Overlay gradients */}
-          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
           <div className="absolute inset-0 bg-squid-pink/5 z-20"></div> */}
       </div>
 
@@ -73,29 +73,29 @@ export default function HeroSection() {
       {/* Countdown Timer - Pinned to Bottom */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
         <div className="flex justify-center gap-4 text-2xl font-mono">
-          <div className="bg-squid-dark p-4 rounded-lg">
+          <div className="bg-squid-dark w-20 h-20 rounded-lg flex flex-col items-center justify-center">
             <div className="text-squid-pink font-bold">
               {timeLeft.days.toString().padStart(2, "0")}
             </div>
-            <div className="text-sm text-white/70">Days</div>
+            <div className="text-xs text-white/70">Days</div>
           </div>
-          <div className="bg-squid-dark p-4 rounded-lg">
+          <div className="bg-squid-dark w-20 h-20 rounded-lg flex flex-col items-center justify-center">
             <div className="text-squid-pink font-bold">
               {timeLeft.hours.toString().padStart(2, "0")}
             </div>
-            <div className="text-sm text-white/70">Hours</div>
+            <div className="text-xs text-white/70">Hours</div>
           </div>
-          <div className="bg-squid-dark p-4 rounded-lg">
+          <div className="bg-squid-dark w-20 h-20 rounded-lg flex flex-col items-center justify-center">
             <div className="text-squid-pink font-bold">
               {timeLeft.minutes.toString().padStart(2, "0")}
             </div>
-            <div className="text-sm text-white/70">Minutes</div>
+            <div className="text-xs text-white/70">Minutes</div>
           </div>
-          <div className="bg-squid-dark p-4 rounded-lg">
+          <div className="bg-squid-dark w-20 h-20 rounded-lg flex flex-col items-center justify-center">
             <div className="text-squid-pink font-bold">
               {timeLeft.seconds.toString().padStart(2, "0")}
             </div>
-            <div className="text-sm text-white/70">Seconds</div>
+            <div className="text-xs text-white/70">Seconds</div>
           </div>
         </div>
       </div>
