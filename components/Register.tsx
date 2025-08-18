@@ -2,7 +2,12 @@
 
 export default function RegisterSection() {
   return (
-    <section className="bg-squid-gray py-16">
+    <section className="bg-squid-gray py-16"
+    style={{
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Translucent black background
+      backdropFilter: 'blur(10px)', // Blur effect
+      WebkitBackdropFilter: 'blur(10px)', // For Safari compatibility
+    }}>
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-squid-pink mb-4">

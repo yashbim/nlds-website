@@ -10,8 +10,16 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <HeroSection />
-      <AboutSection />
-      <RegisterSection />
+      
+      {/* Scrollable Content Container */}
+      <div className="relative z-10">
+        {/* Spacer to push content down initially */}
+        <div className="h-screen"></div>
+        
+        {/* Content sections that will scroll over the hero */}
+        <AboutSection />
+        <RegisterSection />
+      </div>
     </div>
   );
 }

@@ -43,34 +43,34 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 w-full h-full flex items-center justify-center overflow-hidden z-0"
     >
       {/* Video Background */}
-      <div className="fixed inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         {/* Video element - replace src with actual video file */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-contain sm:object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         >
           <source src="/squid-game-bg.mp4" type="video/mp4" />
           {/* Fallback background if video doesn't load */}
         </video>
 
-        {/* Overlay gradients */}
+        {/* Optional overlay gradients - uncomment if needed */}
         {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
-          <div className="absolute inset-0 bg-squid-pink/5 z-20"></div> */}
+        <div className="absolute inset-0 bg-squid-pink/5 z-20"></div> */}
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-30 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         {/* Main content can go here */}
       </div>
 
       {/* Countdown Timer - Pinned to Bottom */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
         <div className="flex justify-center gap-4 text-2xl font-mono">
           <div className="bg-squid-dark w-20 h-20 rounded-lg flex flex-col items-center justify-center">
             <div className="text-squid-pink font-bold">
@@ -100,4 +100,4 @@ export default function HeroSection() {
       </div>
     </section>
   );
-}
+} 
