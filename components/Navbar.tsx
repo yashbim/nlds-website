@@ -71,7 +71,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden md:flex space-x-8 font-mono">
               {NAV_LINKS.map((item) => (
                 <a
                   key={item.name}

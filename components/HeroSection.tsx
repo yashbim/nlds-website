@@ -53,8 +53,7 @@ export default function HeroSection() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          // style={{ filter: "brightness(0.3) contrast(1.2)" }}
+          className="absolute inset-0 w-full h-full object-cover sm:object-cover object-contain"
         >
           <source src="/squid-game-bg.mp4" type="video/mp4" />
           {/* Fallback background if video doesn't load */}
