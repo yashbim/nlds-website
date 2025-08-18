@@ -1,6 +1,6 @@
 export default function AboutEvent() {
   return (
-    <section className="relative bg-black text-white py-16 px-6 md:px-12">
+    <section className="relative z-40 bg-black text-white py-16 px-6 md:px-12">
       {/* Title */}
       <div className="text-center mb-12 font-mono">
         <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide text-white ">
@@ -38,10 +38,14 @@ export default function AboutEvent() {
       {/* About NLDS Paragraph */}
       <div className="max-w-3xl mx-auto tex font-lato text-center">
         <p className="text-lg leading-relaxed text-gray-300">
-          The <span className="text-squid-pink font-semibold">National Leadership Development Seminar (NLDS) </span> 
-          is one of the largest conferences organized by AIESEC in Sri Lanka, bringing together over 
-          250 delegates from more than 15 prestigious universities across the country. It serves as a 
-          platform for AIESECers from all over Sri Lanka to connect, expand their networks, and foster 
+          The{" "}
+          <span className="text-squid-pink font-semibold">
+            National Leadership Development Seminar (NLDS){" "}
+          </span>
+          is one of the largest conferences organized by AIESEC in Sri Lanka,
+          bringing together over 250 delegates from more than 15 prestigious
+          universities across the country. It serves as a platform for AIESECers
+          from all over Sri Lanka to connect, expand their networks, and foster
           the development of the next generation of leaders.
         </p>
       </div>

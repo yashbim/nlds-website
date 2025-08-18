@@ -46,14 +46,14 @@ export default function HeroSection() {
       className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Video Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="fixed inset-0 z-0">
         {/* Video element - replace src with actual video file */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover sm:object-cover object-contain"
+          className="absolute inset-0 w-full h-full object-contain sm:object-cover"
         >
           <source src="/squid-game-bg.mp4" type="video/mp4" />
           {/* Fallback background if video doesn't load */}
