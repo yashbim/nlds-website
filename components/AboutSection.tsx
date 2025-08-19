@@ -39,7 +39,7 @@ export default function AboutEvent() {
       </div>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12 font-mono">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12 font-mono pb-6">
         {/* Item 1 */}
         <div className=" bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
           <Image

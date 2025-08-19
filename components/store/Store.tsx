@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-export default function RegisterSection() {
+export default function Store() {
   return (
-    <section className="relative py-16 overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* Video background */}
       <video
         autoPlay
@@ -21,29 +21,23 @@ export default function RegisterSection() {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
       {/* Foreground content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
-        {/* Title */}
-        <div className="mb-12 flex items-center justify-center pt-10">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col items-center justify-center min-h-screen">
+        {/* Title image */}
+        <div className="mb-12">
           <Image
-            src="/topics/RegisterNow.png"
-            alt="Register Now!"
+            src="/topics/Store.png"
+            alt="Store"
             width={512}
             height={64}
             className="pb-5 hover:scale-105 hover:shadow-xl rounded-2xl transition-all duration-300 ease-in-out"
           />
         </div>
 
-        {/* Inline Tally Form */}
-        <div className="bg-squid-grey/80 rounded-2xl p-8 shadow-lg backdrop-blur-md">
-          <iframe
-            src="https://tally.so/r/wgPje1"
-            width="100%"
-            height="600"
-            title="NLDS 2025 Contact Form"
-            className="rounded-lg"
-          >
-            Loading form...
-          </iframe>
+        {/* Text */}
+        <div className="text-center font-mono">
+          <h2 className="text-2xl font-extrabold tracking-wide text-white">
+            Coming Soon....
+          </h2>
         </div>
       </div>
     </section>
