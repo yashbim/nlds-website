@@ -1,5 +1,7 @@
 'use client';
 
+import Image from "next/image";
+
 export default function RegisterSection() {
   return (
     <section className="bg-squid-gray py-16"
@@ -9,14 +11,16 @@ export default function RegisterSection() {
       WebkitBackdropFilter: 'blur(10px)', // For Safari compatibility
     }}>
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-squid-pink mb-4">
-              Register Now!
-            </h2>
-            {/* <p className="text-lg text-gray-600">
-              Fill out the form below and we'll get back to you soon.
-            </p> */}
-          </div>
+          {/* Title */}
+                <div className="mb-12 flex items-center justify-center">
+                  <Image 
+                      src="/topics/RegisterNow.png" 
+                      alt="Register Now!" 
+                      width={512}   // same size as w-16 h-16
+                      height={64}  
+                      className="pb-5 hover:scale-105 hover:shadow-xl rounded-2xl transition-all duration-300 ease-in-out"
+                    />
+                </div>
 
           {/* Inline Tally Form */}
           <div className="bg-squid-grey rounded-2xl p-8 shadow-lg">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
-import animatedLogo from "../public/animations/animated-bg-logo.json"; // ✅ adjust path if needed
+import animatedLogo from "../public/animations/animated-bg-logo.json"; 
 
 export default function HeroSection() {
   // Countdown timer logic
@@ -56,7 +56,7 @@ export default function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover object-center"
         >
-          <source src="/black-bg-vid-2.mp4" type="video/mp4" />
+          <source src="/squid-game-bg.mp4" type="video/mp4" />
         </video>
       </div>
 
@@ -66,7 +66,7 @@ export default function HeroSection() {
           animationData={animatedLogo}
           loop
           autoplay
-          className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[700px] xl:h-[700px]"
+          className="w-96 h-96 md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px] xl:w-[1300px] xl:h-[1300px]"
         />
       </div>
 

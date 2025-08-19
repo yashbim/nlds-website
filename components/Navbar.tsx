@@ -56,7 +56,7 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo on the left */}
             <div className="flex-shrink-0">
@@ -76,7 +76,7 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-white transition-colors duration-200 font-medium relative group"
+                  className="text-white transition-colors duration-200 font-medium relative group pl-4"
                 >
                   <span className="relative">
                     {item.name}

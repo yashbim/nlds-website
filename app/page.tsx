@@ -17,7 +17,9 @@ export default function Home() {
         <div className="h-screen"></div>
         
         {/* Content sections that will scroll over the hero */}
+        <hr></hr>
         <AboutSection />
+        <hr></hr>
         <RegisterSection />
       </div>
     </div>
