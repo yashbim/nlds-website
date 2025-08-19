@@ -3,6 +3,7 @@ import Image from "next/image";
 export default function AboutEvent() {
   return (
     <section
+    id="about"
       className="relative z-20 py-16 px-6 md:px-12"
       style={{
         backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -78,7 +79,7 @@ export default function AboutEvent() {
       </div>
 
       {/* Title */}
-      <div className="text-center mb-12 font-mono">
+      <div className="text-center mb-6 font-mono">
         <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide text-white">
           Watch Trailer
         </h2>

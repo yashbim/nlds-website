@@ -33,10 +33,10 @@ export default function Store() {
           />
         </div>
 
-        {/* Text */}
+        {/* Animated Text */}
         <div className="text-center font-mono">
-          <h2 className="text-2xl font-extrabold tracking-wide text-white">
-            Coming Soon....
+          <h2 className="text-2xl md:text-4xl font-extrabold tracking-wide text-white animate-pulse">
+            Coming Soon...
           </h2>
         </div>
       </div>
