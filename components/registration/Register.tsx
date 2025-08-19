@@ -23,7 +23,7 @@ export default function RegisterSection() {
       {/* Foreground content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6">
         {/* Title */}
-        <div className="mb-12 flex items-center justify-center pt-10">
+        <div className="mb-12 flex items-center justify-center pt-15">
           <Image
             src="/topics/RegisterNow.png"
             alt="Register Now!"
