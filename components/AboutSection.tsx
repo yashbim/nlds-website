@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -71,47 +72,31 @@ export default function AboutEvent() {
 
       {/* Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12 font-mono pb-6">
-        {/* Item 1 */}
-        <div className=" bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
-          <Image
-            src="/shapes/Circle.png"
-            alt="Circle"
-            width={64}
-            height={64}
-            className="pb-5"
-          />
-          <h3 className="text-l font-semibold">
-            <CountUp end={10} /> Universities
-          </h3>
-        </div>
-
-        {/* Item 2 */}
-        <div className="bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
-          <Image
-            src="/shapes/Triangle.png"
-            alt="Triangle"
-            width={64}
-            height={64}
-            className="pb-5"
-          />
-          <h3 className="text-l font-semibold">
-            <CountUp end={3} /> Days
-          </h3>
-        </div>
-
-        {/* Item 3 */}
-        <div className="bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
-          <Image
-            src="/shapes/Square.png"
-            alt="Square shape"
-            width={64}
-            height={64}
-            className="pb-5"
-          />
-          <h3 className="text-l font-semibold">
-            <CountUp end={250} />+ Delegates
-          </h3>
-        </div>
+        {[
+          { icon: "/shapes/Circle.png", text: "Universities", count: 10 },
+          { icon: "/shapes/Triangle.png", text: "Days", count: 3 },
+          { icon: "/shapes/Square.png", text: "Delegates", count: 250 },
+        ].map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: index * 0.2, type: "spring" }}
+            className="bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out"
+          >
+            <Image
+              src={item.icon}
+              alt={item.text}
+              width={64}
+              height={64}
+              className="pb-5"
+            />
+            <h3 className="text-xl ">
+              <CountUp end={item.count} />
+              {item.count === 250 ? "+" : ""} {item.text}
+            </h3>
+          </motion.div>
+        ))}
       </div>
 
       {/* Title */}
