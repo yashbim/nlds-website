@@ -12,11 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "NLDS - Squid Game Event",
-  description:
-    "Join the ultimate NLDS event with a thrilling Squid Game theme. Are you ready to play?",
-};
+// export const metadata: Metadata = {
+//   title: "NLDS 2025",
+//   description:
+//     "Join the ultimate NLDS event with a thrilling Squid Game theme. Are you ready to play?",
+// };
 
 export default function RootLayout({
   children,

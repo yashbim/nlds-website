@@ -3,9 +3,15 @@ import RegisterSection from "@/components/store/Store";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Navbar />
-      <RegisterSection />
-    </div>
+    <>
+      <head>
+        <title>Store</title>
+        <meta name="Store" content="By NLDS 2025 merch" />
+      </head>
+      <div className="min-h-screen bg-black text-white">
+        <Navbar />
+        <RegisterSection />
+      </div>
+    </>
   );
 }
