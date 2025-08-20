@@ -37,10 +37,15 @@ Initial deployment branch, with homepage + about, registration & store. All feat
 ### ChangeLog
 1. **Common**
    *    Added dynamic titles when page routing.
-   *    Footer added
    *    Favicon Added
 2. **Home Page**
    * Event stats animations
   
 3. **Registration Page**
    * Fixed tallyform width issue
+
+## v1.0.2
+
+### ChangeLog
+1. **Common**
+   *    Fixed start value variable reassigning issue
