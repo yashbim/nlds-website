@@ -37,7 +37,6 @@ Initial deployment branch, with homepage + about, registration & store. All feat
 ### ChangeLog
 1. **Common**
    *    Added dynamic titles when page routing.
-   *    Footer added
    *    Favicon Added
 2. **Home Page**
    * Event stats animations
