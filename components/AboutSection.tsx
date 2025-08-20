@@ -10,7 +10,7 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
+    const start = 0;
     const startTime = performance.now();
 
     const animate = (currentTime: number) => {
