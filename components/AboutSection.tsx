@@ -1,4 +1,34 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+
+
+
+// ✅ Reusable CountUp component
+function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      if (elapsed < duration) {
+        const progress = Math.min(elapsed / duration, 1);
+        setCount(Math.floor(progress * end));
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end); // Ensure it ends at the correct number
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [end, duration]);
+
+  return <span>{count}</span>;
+}
+
 
 export default function AboutEvent() {
   return (
@@ -48,9 +78,11 @@ export default function AboutEvent() {
             alt="Circle"
             width={64}
             height={64}
-            className="pb-5 hover:scale-105 transition-all duration-300 ease-in-out"
+            className="pb-5"
           />
-          <h3 className="text-l font-semibold">10 Universities</h3>
+          <h3 className="text-l font-semibold">
+            <CountUp end={10} /> Universities
+          </h3>
         </div>
 
         {/* Item 2 */}
@@ -60,9 +92,11 @@ export default function AboutEvent() {
             alt="Triangle"
             width={64}
             height={64}
-            className="pb-5 hover:scale-105 transition-all duration-300 ease-in-out"
+            className="pb-5"
           />
-          <h3 className="text-l font-semibold">3 Days</h3>
+          <h3 className="text-l font-semibold">
+            <CountUp end={3} /> Days
+          </h3>
         </div>
 
         {/* Item 3 */}
@@ -72,9 +106,11 @@ export default function AboutEvent() {
             alt="Square shape"
             width={64}
             height={64}
-            className="pb-5 hover:scale-105 transition-all duration-300 ease-in-out"
+            className="pb-5"
           />
-          <h3 className="text-l font-semibold">250+ Delegates</h3>
+          <h3 className="text-l font-semibold">
+            <CountUp end={250} />+ Delegates
+          </h3>
         </div>
       </div>
 
