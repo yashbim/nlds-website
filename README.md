@@ -44,3 +44,9 @@ Initial deployment branch, with homepage + about, registration & store. All feat
   
 3. **Registration Page**
    * Fixed tallyform width issue
+
+## v1.0.2
+
+### ChangeLog
+1. **Common**
+   *    Fixed start value variable reassigning issue
