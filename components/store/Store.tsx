@@ -2,14 +2,20 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { MERCH_ITEMS, MerchItem } from "@/constants/Merch";
 
 export default function Store() {
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleAddToCart = (productName: string, size: string, quantity: number) => {
     setPopupMessage(`${quantity} × ${productName}${size ? ` (${size})` : ""} added to your cart!`);
     setTimeout(() => setPopupMessage(null), 2500); // Auto-hide after 2.5s
+  };
+
+  const handleViewCart = () => {
+    router.push('/cart');
   };
 
   return (
@@ -52,11 +58,21 @@ export default function Store() {
             />
           ))}
         </div>
+
+        {/* View Cart Button */}
+        <div className="flex justify-center mt-12 pb-8">
+          <button
+            onClick={handleViewCart}
+            className="bg-squid-teal hover:bg-squid-teal/80 text-white py-4 px-8 rounded-xl transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 border-2 border-white/20"
+          >
+            View Cart
+          </button>
+        </div>
       </div>
 
       {/* Popup Message */}
       {popupMessage && (
-        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-pink-600 text-white py-3 px-6 rounded-xl shadow-xl text-center z-50 animate-fade-in-out">
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-squid-dark border-2 border-squid-teal text-white py-3 px-6 rounded-xl shadow-xl text-center z-50 animate-fade-in-out opacity-80">
           {popupMessage}
         </div>
       )}
@@ -203,6 +219,8 @@ function ProductCard({
           </div>
         </div>
 
+        
+
         <button
           onClick={() => onAddToCart(product.name, selectedSize, quantity)}
           className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 px-4 rounded-xl transition-colors duration-300 font-medium mt-auto"
@@ -211,5 +229,6 @@ function ProductCard({
         </button>
       </div>
     </div>
+    
   );
 }
