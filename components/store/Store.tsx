@@ -3,15 +3,31 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/contexts/CartContext";
 import { MERCH_ITEMS, MerchItem } from "@/constants/Merch";
 
 export default function Store() {
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const router = useRouter();
+  const { addToCart } = useCart();
 
-  const handleAddToCart = (productName: string, size: string, quantity: number) => {
-    setPopupMessage(`${quantity} × ${productName}${size ? ` (${size})` : ""} added to your cart!`);
-    setTimeout(() => setPopupMessage(null), 2500); // Auto-hide after 2.5s
+  const handleAddToCart = (productName: string, size: string, quantity: number, product: MerchItem) => {
+    // Find the product to get all details
+    const productDetails = MERCH_ITEMS.find(item => item.name === productName);
+    
+    if (productDetails) {
+      addToCart({
+        name: productName,
+        price: productDetails.price,
+        image: Array.isArray(productDetails.images) ? productDetails.images[0] : productDetails.images[0],
+        size,
+        quantity,
+        type: productDetails.type,
+      });
+
+      setPopupMessage(`${quantity} × ${productName}${size ? ` (${size})` : ""} added to your cart!`);
+      setTimeout(() => setPopupMessage(null), 2500);
+    }
   };
 
   const handleViewCart = () => {
@@ -80,13 +96,12 @@ export default function Store() {
   );
 }
 
-
 function ProductCard({
   product,
   onAddToCart,
 }: {
   product: MerchItem;
-  onAddToCart: (productName: string, size: string, quantity: number) => void;
+  onAddToCart: (productName: string, size: string, quantity: number, product: MerchItem) => void;
 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[2] || "");
@@ -219,16 +234,13 @@ function ProductCard({
           </div>
         </div>
 
-        
-
         <button
-          onClick={() => onAddToCart(product.name, selectedSize, quantity)}
+          onClick={() => onAddToCart(product.name, selectedSize, quantity, product)}
           className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 px-4 rounded-xl transition-colors duration-300 font-medium mt-auto"
         >
           Add to Cart
         </button>
       </div>
     </div>
-    
   );
 }

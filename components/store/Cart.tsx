@@ -1,88 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  size?: string;
-  quantity: number;
-  type: string;
-}
+import { useCart } from "@/contexts/CartContext";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState(true);
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const router = useRouter();
-
-  // Mock cart data - In a real app, this would come from a cart context/state management
-  useEffect(() => {
-    // Simulating loading cart from localStorage or API
-    const mockCartItems: CartItem[] = [
-      {
-        id: "1",
-        name: "Squid Game Player Shirt",
-        price: 2500,
-        image: "/merch/tshirt-front.jpg",
-        size: "M",
-        quantity: 2,
-        type: "tshirt"
-      },
-      {
-        id: "2",
-        name: "Squid Game Guard Mask",
-        price: 1800,
-        image: "/merch/mask.jpg",
-        quantity: 1,
-        type: "accessory"
-      },
-      {
-        id: "3",
-        name: "Dalgona Cookie Set",
-        price: 800,
-        image: "/merch/cookie.jpg",
-        quantity: 3,
-        type: "food"
-      }
-    ];
-    
-    setTimeout(() => {
-      setCartItems(mockCartItems);
-      setLoading(false);
-    }, 500);
-  }, []);
-
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setCartItems(items => 
-      items.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-    showPopup("Quantity updated");
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-    showPopup("Item removed from cart");
-  };
+  const { 
+    items: cartItems, 
+    isLoading, 
+    updateQuantity, 
+    removeFromCart, 
+    getTotalPrice, 
+    getTotalItems 
+  } = useCart();
 
   const showPopup = (message: string) => {
     setPopupMessage(message);
     setTimeout(() => setPopupMessage(null), 2000);
   };
 
-  const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const handleUpdateQuantity = (id: string, newQuantity: number) => {
+    updateQuantity(id, newQuantity);
+    showPopup("Quantity updated");
   };
 
-  const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  const handleRemoveItem = (id: string) => {
+    removeFromCart(id);
+    showPopup("Item removed from cart");
   };
 
   const handleContinueShopping = () => {
@@ -91,16 +38,14 @@ export default function Cart() {
 
   const handleCheckout = () => {
     showPopup("Proceeding to checkout...");
-    // In a real app, this would navigate to checkout page
     setTimeout(() => {
       router.push('/checkout');
     }, 1000);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="relative py-16 min-h-screen overflow-hidden">
-        {/* Video background */}
         <video
           autoPlay
           loop
@@ -126,7 +71,6 @@ export default function Cart() {
 
   return (
     <section className="relative py-16 min-h-screen overflow-hidden">
-      {/* Video background */}
       <video
         autoPlay
         loop
@@ -138,12 +82,9 @@ export default function Cart() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
-      {/* Foreground content */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title */}
         <div className="mt-10 mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             Shopping Cart
@@ -154,7 +95,6 @@ export default function Cart() {
         </div>
 
         {cartItems.length === 0 ? (
-          /* Empty cart */
           <div className="text-center py-16">
             <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 max-w-md mx-auto">
               <div className="text-6xl mb-6">🛒</div>
@@ -170,19 +110,17 @@ export default function Cart() {
           </div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-3">
-            {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {cartItems.map((item) => (
                 <CartItemCard
                   key={item.id}
                   item={item}
-                  onUpdateQuantity={updateQuantity}
-                  onRemove={removeItem}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemove={handleRemoveItem}
                 />
               ))}
             </div>
 
-            {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sticky top-8">
                 <h3 className="text-xl font-semibold text-white mb-6">Order Summary</h3>
@@ -225,7 +163,6 @@ export default function Cart() {
         )}
       </div>
 
-      {/* Popup Message */}
       {popupMessage && (
         <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-squid-dark border-2 border-squid-teal text-white py-3 px-6 rounded-xl shadow-xl text-center z-50 animate-fade-in-out opacity-80">
           {popupMessage}
@@ -240,7 +177,7 @@ function CartItemCard({
   onUpdateQuantity,
   onRemove,
 }: {
-  item: CartItem;
+  item: any;
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;
 }) {
@@ -254,7 +191,6 @@ function CartItemCard({
   return (
     <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col sm:flex-row gap-4">
-        {/* Product Image */}
         <div className="flex-shrink-0">
           <div className="relative w-24 h-24 bg-white/5 rounded-xl overflow-hidden">
             <Image
@@ -266,7 +202,6 @@ function CartItemCard({
           </div>
         </div>
 
-        {/* Product Details */}
         <div className="flex-grow">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
             <div>
@@ -279,9 +214,7 @@ function CartItemCard({
               </p>
             </div>
 
-            {/* Quantity and Remove */}
             <div className="flex flex-col items-end gap-3">
-              {/* Quantity Selector */}
               <div className="flex items-center gap-3">
                 <span className="text-gray-300 text-sm">Qty:</span>
                 <div className="flex items-center gap-2">
@@ -304,7 +237,6 @@ function CartItemCard({
                 </div>
               </div>
 
-              {/* Remove Button */}
               <button
                 onClick={() => onRemove(item.id)}
                 className="text-red-400 hover:text-red-300 text-sm transition-colors duration-200 underline"
@@ -314,7 +246,6 @@ function CartItemCard({
             </div>
           </div>
 
-          {/* Item Total */}
           <div className="mt-4 pt-4 border-t border-white/10">
             <div className="flex justify-between items-center">
               <span className="text-gray-300">Item total:</span>
