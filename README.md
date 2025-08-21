@@ -8,6 +8,7 @@ Official website of National Leadership Development Seminar 2025 by AIESEC in Sr
 
 * dev - Main development branch
 * master - Deployment branch
+* store - implementing store with cart
 
 # Versions
 
