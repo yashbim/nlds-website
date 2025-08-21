@@ -1,9 +1,330 @@
-import React from 'react'
+"use client";
 
-const Cart = () => {
-  return (
-    <div>Cart</div>
-  )
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  size?: string;
+  quantity: number;
+  type: string;
 }
 
-export default Cart
+export default function Cart() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [popupMessage, setPopupMessage] = useState<string | null>(null);
+  const router = useRouter();
+
+  // Mock cart data - In a real app, this would come from a cart context/state management
+  useEffect(() => {
+    // Simulating loading cart from localStorage or API
+    const mockCartItems: CartItem[] = [
+      {
+        id: "1",
+        name: "Squid Game Player Shirt",
+        price: 2500,
+        image: "/merch/tshirt-front.jpg",
+        size: "M",
+        quantity: 2,
+        type: "tshirt"
+      },
+      {
+        id: "2",
+        name: "Squid Game Guard Mask",
+        price: 1800,
+        image: "/merch/mask.jpg",
+        quantity: 1,
+        type: "accessory"
+      },
+      {
+        id: "3",
+        name: "Dalgona Cookie Set",
+        price: 800,
+        image: "/merch/cookie.jpg",
+        quantity: 3,
+        type: "food"
+      }
+    ];
+    
+    setTimeout(() => {
+      setCartItems(mockCartItems);
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  const updateQuantity = (id: string, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    setCartItems(items => 
+      items.map(item => 
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+    showPopup("Quantity updated");
+  };
+
+  const removeItem = (id: string) => {
+    setCartItems(items => items.filter(item => item.id !== id));
+    showPopup("Item removed from cart");
+  };
+
+  const showPopup = (message: string) => {
+    setPopupMessage(message);
+    setTimeout(() => setPopupMessage(null), 2000);
+  };
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getTotalItems = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const handleContinueShopping = () => {
+    router.push('/store');
+  };
+
+  const handleCheckout = () => {
+    showPopup("Proceeding to checkout...");
+    // In a real app, this would navigate to checkout page
+    setTimeout(() => {
+      router.push('/checkout');
+    }, 1000);
+  };
+
+  if (loading) {
+    return (
+      <section className="relative py-16 min-h-screen overflow-hidden">
+        {/* Video background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/squid-game-bg.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-squid-teal mx-auto mb-4"></div>
+            <p className="text-white text-xl">Loading your cart...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative py-16 min-h-screen overflow-hidden">
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/squid-game-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+      {/* Foreground content */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title */}
+        <div className="mt-10 mb-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+            Shopping Cart
+          </h1>
+          <p className="text-gray-300 text-lg">
+            {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'} in your cart
+          </p>
+        </div>
+
+        {cartItems.length === 0 ? (
+          /* Empty cart */
+          <div className="text-center py-16">
+            <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 max-w-md mx-auto">
+              <div className="text-6xl mb-6">🛒</div>
+              <h2 className="text-2xl font-semibold text-white mb-4">Your cart is empty</h2>
+              <p className="text-gray-300 mb-8">Add some amazing Squid Game merch to get started!</p>
+              <button
+                onClick={handleContinueShopping}
+                className="bg-squid-teal hover:bg-squid-teal/80 text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
+              >
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-8 lg:grid-cols-3">
+            {/* Cart Items */}
+            <div className="lg:col-span-2 space-y-4">
+              {cartItems.map((item) => (
+                <CartItemCard
+                  key={item.id}
+                  item={item}
+                  onUpdateQuantity={updateQuantity}
+                  onRemove={removeItem}
+                />
+              ))}
+            </div>
+
+            {/* Order Summary */}
+            <div className="lg:col-span-1">
+              <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sticky top-8">
+                <h3 className="text-xl font-semibold text-white mb-6">Order Summary</h3>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between text-gray-300">
+                    <span>Subtotal ({getTotalItems()} items)</span>
+                    <span>{getTotalPrice().toLocaleString()} LKR</span>
+                  </div>
+                  <div className="flex justify-between text-gray-300">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                  </div>
+                  <div className="border-t border-white/20 pt-3">
+                    <div className="flex justify-between text-white text-lg font-semibold">
+                      <span>Total</span>
+                      <span>{getTotalPrice().toLocaleString()} LKR</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <button
+                    onClick={handleCheckout}
+                    className="w-full bg-pink-600 hover:bg-pink-700 text-white py-4 px-6 rounded-xl transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+                  >
+                    Proceed to Checkout
+                  </button>
+                  
+                  <button
+                    onClick={handleContinueShopping}
+                    className="w-full bg-transparent border-2 border-squid-teal text-squid-teal hover:bg-squid-teal hover:text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
+                  >
+                    Continue Shopping
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Popup Message */}
+      {popupMessage && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-squid-dark border-2 border-squid-teal text-white py-3 px-6 rounded-xl shadow-xl text-center z-50 animate-fade-in-out opacity-80">
+          {popupMessage}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function CartItemCard({
+  item,
+  onUpdateQuantity,
+  onRemove,
+}: {
+  item: CartItem;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+  onRemove: (id: string) => void;
+}) {
+  const handleQuantityChange = (increment: boolean) => {
+    const newQuantity = increment ? item.quantity + 1 : item.quantity - 1;
+    if (newQuantity >= 1) {
+      onUpdateQuantity(item.id, newQuantity);
+    }
+  };
+
+  return (
+    <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+      <div className="flex flex-col sm:flex-row gap-4">
+        {/* Product Image */}
+        <div className="flex-shrink-0">
+          <div className="relative w-24 h-24 bg-white/5 rounded-xl overflow-hidden">
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              className="object-contain p-2"
+            />
+          </div>
+        </div>
+
+        {/* Product Details */}
+        <div className="flex-grow">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-1">{item.name}</h3>
+              {item.size && (
+                <p className="text-gray-400 text-sm mb-2">Size: {item.size}</p>
+              )}
+              <p className="text-squid-teal font-semibold text-lg">
+                {item.price.toLocaleString()} LKR
+              </p>
+            </div>
+
+            {/* Quantity and Remove */}
+            <div className="flex flex-col items-end gap-3">
+              {/* Quantity Selector */}
+              <div className="flex items-center gap-3">
+                <span className="text-gray-300 text-sm">Qty:</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleQuantityChange(false)}
+                    disabled={item.quantity <= 1}
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white flex items-center justify-center transition-colors duration-200"
+                  >
+                    -
+                  </button>
+                  <span className="text-white font-medium text-lg min-w-[2rem] text-center">
+                    {item.quantity}
+                  </span>
+                  <button
+                    onClick={() => handleQuantityChange(true)}
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors duration-200"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {/* Remove Button */}
+              <button
+                onClick={() => onRemove(item.id)}
+                className="text-red-400 hover:text-red-300 text-sm transition-colors duration-200 underline"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+
+          {/* Item Total */}
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Item total:</span>
+              <span className="text-white font-semibold text-lg">
+                {(item.price * item.quantity).toLocaleString()} LKR
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
