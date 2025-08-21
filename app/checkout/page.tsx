@@ -1,17 +1,17 @@
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
-import Cart from "@/components/store/Cart";
+import Checkout from "@/components/store/Checkout";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Register</title>
-        <meta name="Register" content="Register for NLDS 2025" />
+        <title>Checkout</title>
+        <meta name="Checkout" content="Checkout" />
       </Head>
       <div className="min-h-screen bg-black text-white">
         <Navbar />
-        <Cart />
+        <Checkout />
       </div>
     </>
   );
