@@ -64,6 +64,7 @@ export default function Store() {
   );
 }
 
+
 function ProductCard({
   product,
   onAddToCart,
@@ -71,36 +72,85 @@ function ProductCard({
   product: MerchItem;
   onAddToCart: (productName: string, size: string, quantity: number) => void;
 }) {
-  const [hoverIndex, setHoverIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[2] || "");
   const [quantity, setQuantity] = useState(1);
 
   const hasMultipleImages =
     Array.isArray(product.images) && product.images.length > 1;
-  const mainImage = hasMultipleImages
-    ? product.images[hoverIndex]
-    : product.images?.[0];
+  const mainImage = hasMultipleImages ? product.images[imageIndex] : product.images?.[0];
+
+  // For swipe detection
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const handleQuantityChange = (increment: boolean) => {
     setQuantity((prev) => (increment ? prev + 1 : Math.max(1, prev - 1)));
   };
 
+  const handlePrevImage = () => {
+    if (!hasMultipleImages) return;
+    setImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    if (!hasMultipleImages) return;
+    setImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
+  };
+
+  // Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX - touchEndX;
+
+    // Threshold for swipe
+    if (diffX > 50) handleNextImage(); // Swipe left → next
+    else if (diffX < -50) handlePrevImage(); // Swipe right → previous
+
+    setTouchStartX(null);
+  };
+
   return (
-    <div
-      className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full flex flex-col"
-      onMouseEnter={() => hasMultipleImages && setHoverIndex(1)}
-      onMouseLeave={() => setHoverIndex(0)}
-    >
+    <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full flex flex-col">
+      
       {/* Image container */}
-      <div className="relative w-full aspect-square bg-white/5 p-4">
+      <div
+        className="relative w-full aspect-square bg-white/5 p-4 flex items-center justify-center"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="relative w-full h-full">
           <Image
             src={mainImage}
             alt={product.name}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300"
+            className="object-contain transition-transform duration-300"
           />
         </div>
+
+        {/* Left Arrow */}
+        {hasMultipleImages && (
+          <button
+            onClick={handlePrevImage}
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/20 hover:bg-white/40 rounded-full transition-colors duration-200"
+          >
+            <div className="w-0 h-0 border-t-4 border-b-4 border-r-6 border-t-transparent border-b-transparent border-r-white"></div>
+          </button>
+        )}
+
+        {/* Right Arrow */}
+        {hasMultipleImages && (
+          <button
+            onClick={handleNextImage}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/20 hover:bg-white/40 rounded-full transition-colors duration-200"
+          >
+            <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-t-transparent border-b-transparent border-l-white"></div>
+          </button>
+        )}
       </div>
 
       {/* Content section */}
@@ -119,7 +169,7 @@ function ProductCard({
                   onClick={() => setSelectedSize(size)}
                   className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors duration-200 ${
                     selectedSize === size
-                      ? "bg-squid-teal text-white"
+                      ? "bg-pink-600 text-white"
                       : "bg-white/10 text-gray-300 hover:bg-white/20"
                   }`}
                 >
@@ -155,7 +205,7 @@ function ProductCard({
 
         <button
           onClick={() => onAddToCart(product.name, selectedSize, quantity)}
-          className="w-full bg-pink-600 hover:bg-squid-teal text-white py-3 px-4 rounded-xl transition-colors duration-300 font-medium mt-auto"
+          className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 px-4 rounded-xl transition-colors duration-300 font-medium mt-auto"
         >
           Add to Cart
         </button>
