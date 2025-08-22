@@ -7,7 +7,9 @@ import { useCart } from "@/contexts/CartContext";
 
 interface FormData {
   name: string;
-  nic: string;
+  email: string;
+  contactNumber: string;
+  homeAddress: string;
   entity: string;
   attendingEvent: boolean;
   proofOfPurchase: File | null;
@@ -19,7 +21,9 @@ export default function Checkout() {
   
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    nic: "",
+    email: "",
+    contactNumber: "",
+    homeAddress: "",
     entity: "",
     attendingEvent: false,
     proofOfPurchase: null,
@@ -30,12 +34,25 @@ export default function Checkout() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const entityOptions = [
-    "Individual",
-    "University Student", 
-    "School Student",
-    "Company/Organization",
-    "Government Institution",
-    "NGO/Non-profit",
+    "Colombo Central ",
+    "Colombo South",
+    "Colombo North",
+    "USJ",
+    "Kandy",
+    "SLIIT",
+    "NSBM",
+    "NIBM",
+    "Rajarata",
+    "Ruhuna",
+    "Wayamba",
+    "Saegis",
+    "SLTC",
+    "Vavuniya",
+    "KDU",
+    "IIT",
+    "Jaffna",
+    "Horizon Campus",
+    "EUSL",
     "Other"
   ];
 
@@ -73,7 +90,7 @@ export default function Checkout() {
     );
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
     if (type === "checkbox") {
@@ -111,7 +128,9 @@ export default function Checkout() {
       
       // Form fields
       submitData.append("name", formData.name);
-      submitData.append("nic", formData.nic);
+      submitData.append("email", formData.email);
+      submitData.append("contact_number", formData.contactNumber);
+      submitData.append("home_address", formData.homeAddress);
       submitData.append("entity", formData.entity);
       submitData.append("attending_event", formData.attendingEvent ? "Yes" : "No");
       
@@ -297,20 +316,54 @@ export default function Checkout() {
                   />
                 </div>
 
-                {/* NIC */}
+                {/* Email */}
                 <div>
-                  <label htmlFor="nic" className="block text-sm font-medium text-gray-300 mb-2">
-                    NIC Number *
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    Email Address *
                   </label>
                   <input
-                    type="text"
-                    id="nic"
-                    name="nic"
-                    value={formData.nic}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-squid-teal focus:border-transparent"
-                    placeholder="Enter your NIC number"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+
+                {/* Contact Number */}
+                <div>
+                  <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-300 mb-2">
+                    Contact Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="contactNumber"
+                    name="contactNumber"
+                    value={formData.contactNumber}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-squid-teal focus:border-transparent"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+
+                {/* Home Address */}
+                <div>
+                  <label htmlFor="homeAddress" className="block text-sm font-medium text-gray-300 mb-2">
+                    Home Address *
+                  </label>
+                  <textarea
+                    id="homeAddress"
+                    name="homeAddress"
+                    value={formData.homeAddress}
+                    onChange={handleInputChange}
+                    required
+                    rows={3}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-squid-teal focus:border-transparent resize-none"
+                    placeholder="Enter your complete home address"
                   />
                 </div>
 
@@ -367,10 +420,10 @@ export default function Checkout() {
                   />
                   <div className="mt-2 space-y-1">
                     <p className="text-gray-400 text-xs">
-                      📎 Upload bank receipt, payment screenshot, or other proof
+                      🔍 Upload bank receipt, payment screenshot, or other proof
                     </p>
                     <p className="text-gray-400 text-xs">
-                      📏 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
+                      📄 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
                     </p>
                     {formData.proofOfPurchase && (
                       <p className="text-green-400 text-xs">
