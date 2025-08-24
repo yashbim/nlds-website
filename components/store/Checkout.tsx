@@ -121,6 +121,50 @@ export default function Checkout() {
     setErrorMessage(""); // Clear any previous errors
   };
 
+  const sendCustomerConfirmation = async () => {
+    try {
+      // Prepare cart items data (without images for email)
+      const cartItemsForEmail = cartItems.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        size: item.size
+      }));
+
+      const customerData = {
+        name: formData.name,
+        email: formData.email,
+        contactNumber: formData.contactNumber,
+        homeAddress: formData.homeAddress,
+        entity: formData.entity,
+        attendingEvent: formData.attendingEvent,
+        cartItems: cartItemsForEmail,
+        totalItems: getTotalItems(),
+        totalAmount: getTotalPrice(),
+        orderDate: new Date().toISOString()
+      };
+
+      const response = await fetch("/api/send-customer-confirmation", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(customerData)
+      });
+
+      const result = await response.json();
+      
+      if (!result.success) {
+        console.error("Failed to send customer confirmation:", result.message);
+        // Don't fail the entire order if email fails
+      }
+    } catch (error) {
+      console.error("Error sending customer confirmation:", error);
+      // Don't fail the entire order if email fails
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -155,7 +199,7 @@ export default function Checkout() {
         submitData.append("proofOfPurchase", formData.proofOfPurchase);
       }
 
-      // Send to your API route
+      // Send to your existing API route (for admin notification)
       const response = await fetch("/api/checkout", {
         method: "POST",
         body: submitData
@@ -164,6 +208,9 @@ export default function Checkout() {
       const result = await response.json();
 
       if (result.success) {
+        // Send customer confirmation email
+        await sendCustomerConfirmation();
+        
         setSubmitStatus("success");
         // Clear the cart after successful submission
         setTimeout(() => {
@@ -424,7 +471,7 @@ export default function Checkout() {
                       📄 Upload bank receipt, payment screenshot, or other proof
                     </p>
                     <p className="text-gray-400 text-xs">
-                      📁 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
+                      📏 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
                     </p>
                     {formData.proofOfPurchase && (
                       <p className="text-green-400 text-xs">
