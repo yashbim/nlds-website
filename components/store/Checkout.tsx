@@ -34,7 +34,7 @@ export default function Checkout() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const entityOptions = [
-    "Colombo Central ",
+    "Colombo Central",
     "Colombo South",
     "Colombo North",
     "USJ",
@@ -110,6 +110,13 @@ export default function Checkout() {
       return;
     }
     
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (file && !allowedTypes.includes(file.type)) {
+      setErrorMessage("Please upload a valid file (JPG, PNG, PDF, DOC, DOCX)");
+      return;
+    }
+    
     setFormData(prev => ({ ...prev, proofOfPurchase: file }));
     setErrorMessage(""); // Clear any previous errors
   };
@@ -123,39 +130,33 @@ export default function Checkout() {
     try {
       const submitData = new FormData();
       
-      // Web3Forms access key - Get this from https://web3forms.com
-      submitData.append("access_key", "caa88778-5369-4c71-9d0a-5f5d5c9c8bc9");
-      
       // Form fields
       submitData.append("name", formData.name);
       submitData.append("email", formData.email);
-      submitData.append("contact_number", formData.contactNumber);
-      submitData.append("home_address", formData.homeAddress);
+      submitData.append("contactNumber", formData.contactNumber);
+      submitData.append("homeAddress", formData.homeAddress);
       submitData.append("entity", formData.entity);
-      submitData.append("attending_event", formData.attendingEvent ? "Yes" : "No");
+      submitData.append("attendingEvent", formData.attendingEvent.toString());
       
       // Cart summary
       const cartSummary = cartItems.map(item => 
-        `${item.name}${item.size ? ` (Size: ${item.size})` : ""} - Qty: ${item.quantity} - ${item.price} LKR each`
+        `${item.name}${item.size ? ` (Size: ${item.size})` : ""} - Qty: ${item.quantity} - ${item.price.toLocaleString()} LKR each`
       ).join('\n');
       
-      submitData.append("cart_items", cartSummary);
-      submitData.append("total_items", getTotalItems().toString());
-      submitData.append("total_amount", `${getTotalPrice()} LKR`);
+      submitData.append("cartItems", cartSummary);
+      submitData.append("totalItems", getTotalItems().toString());
+      submitData.append("totalAmount", `${getTotalPrice().toLocaleString()} LKR`);
       
       // Order timestamp
-      submitData.append("order_date", new Date().toISOString());
-      
-      // Custom subject for email
-      submitData.append("subject", `New Squid Game Order - ${formData.name}`);
+      submitData.append("orderDate", new Date().toISOString());
       
       // Add proof of purchase file
       if (formData.proofOfPurchase) {
-        submitData.append("attachment", formData.proofOfPurchase);
+        submitData.append("proofOfPurchase", formData.proofOfPurchase);
       }
 
-      // Web3Forms endpoint
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // Send to your API route
+      const response = await fetch("/api/checkout", {
         method: "POST",
         body: submitData
       });
@@ -206,7 +207,7 @@ export default function Checkout() {
               Thank you for your purchase! We've received your order and proof of purchase.
             </p>
             <p className="text-gray-400 text-sm mb-8">
-              You'll be redirected to the confirmation page in a few seconds...
+              You'll receive a confirmation email shortly. Redirecting to confirmation page...
             </p>
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-squid-teal mx-auto"></div>
           </div>
@@ -420,10 +421,10 @@ export default function Checkout() {
                   />
                   <div className="mt-2 space-y-1">
                     <p className="text-gray-400 text-xs">
-                      🔍 Upload bank receipt, payment screenshot, or other proof
+                      📄 Upload bank receipt, payment screenshot, or other proof
                     </p>
                     <p className="text-gray-400 text-xs">
-                      📄 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
+                      📁 Max file size: 10MB | Formats: JPG, PNG, PDF, DOC
                     </p>
                     {formData.proofOfPurchase && (
                       <p className="text-green-400 text-xs">
@@ -434,9 +435,9 @@ export default function Checkout() {
                 </div>
 
                 {/* Error Message */}
-                {submitStatus === "error" && (
+                {(submitStatus === "error" || errorMessage) && (
                   <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-4">
-                    <p className="text-red-300 text-sm">{errorMessage}</p>
+                    <p className="text-red-300 text-sm">{errorMessage || "Something went wrong. Please try again."}</p>
                   </div>
                 )}
 
