@@ -371,7 +371,7 @@ export default function Checkout() {
                 {/* Entity */}
                 <div>
                   <label htmlFor="entity" className="block text-sm font-medium text-gray-300 mb-2">
-                    Entity Type *
+                    Entity *
                   </label>
                   <select
                     id="entity"
@@ -381,7 +381,7 @@ export default function Checkout() {
                     required
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-squid-teal focus:border-transparent"
                   >
-                    <option value="" className="bg-gray-800">Select entity type</option>
+                    <option value="" className="bg-gray-800">Select your entity</option>
                     {entityOptions.map((option) => (
                       <option key={option} value={option} className="bg-gray-800">
                         {option}
@@ -401,7 +401,7 @@ export default function Checkout() {
                     className="mt-1 w-4 h-4 text-squid-teal bg-white/10 border-white/20 rounded focus:ring-squid-teal focus:ring-2"
                   />
                   <label htmlFor="attendingEvent" className="text-sm text-gray-300">
-                    I will be attending the Squid Game event
+                    I will be attending NLDS 2025
                   </label>
                 </div>
 

@@ -89,7 +89,7 @@ export default function Cart() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             Shopping Cart
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-300 text-lg pt-7">
             {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'} in your cart
           </p>
         </div>
@@ -99,7 +99,7 @@ export default function Cart() {
             <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 max-w-md mx-auto">
               <div className="text-6xl mb-6">🛒</div>
               <h2 className="text-2xl font-semibold text-white mb-4">Your cart is empty</h2>
-              <p className="text-gray-300 mb-8">Add some amazing Squid Game merch to get started!</p>
+              <p className="text-gray-300 mb-8">Add some amazing NLDS drip to get started!</p>
               <button
                 onClick={handleContinueShopping}
                 className="bg-squid-teal hover:bg-squid-teal/80 text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
@@ -130,9 +130,9 @@ export default function Cart() {
                     <span>Subtotal ({getTotalItems()} items)</span>
                     <span>{getTotalPrice().toLocaleString()} LKR</span>
                   </div>
-                  <div className="flex justify-between text-gray-300">
-                    <span>Shipping</span>
-                    <span>Free</span>
+                  <div className="flex justify-between text-gray-300 text-sm">
+                    <span>Can be collected on the event day or will be handed over to your entity</span>
+                    {/* <span>Free</span> */}
                   </div>
                   <div className="border-t border-white/20 pt-3">
                     <div className="flex justify-between text-white text-lg font-semibold">

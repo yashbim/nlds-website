@@ -62,7 +62,7 @@ export default function OrderConfirmation() {
                 <div className="w-6 h-6 bg-squid-teal rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-sm font-bold">3</span>
                 </div>
-                <p>We'll contact you with delivery/pickup instructions</p>
+                <p>Merch can be collected on the event day or will be handed over to your entity</p>
               </div>
             </div>
           </div>
@@ -71,11 +71,11 @@ export default function OrderConfirmation() {
           <div className="bg-white/5 rounded-xl p-6 mb-8">
             <h3 className="text-lg font-semibold text-white mb-3">Questions about your order?</h3>
             <p className="text-gray-300 mb-3">
-              Contact our support team if you need any assistance.
+              Contact the OC if you need any assistance.
             </p>
             <div className="text-squid-teal font-medium">
-              📧 support@squidevent.com<br />
-              📱 +94 XXX XXX XXX
+              📧 bimsara.madurapperuma@aiesec.net<br />
+              📱 +94 76 732 96 85
             </div>
           </div>
 
@@ -92,7 +92,7 @@ export default function OrderConfirmation() {
               onClick={() => router.push('/')}
               className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 py-3 px-8 rounded-xl transition-all duration-300 font-medium"
             >
-              Back to Home
+              Back Home
             </button>
           </div>
 

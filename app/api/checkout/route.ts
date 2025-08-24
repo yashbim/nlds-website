@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     // Create email content
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #e91e63; text-align: center;">New Squid Game Order</h1>
+        <h1 style="color: #e91e63; text-align: center;">New Merch Order</h1>
         
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h2 style="color: #333; border-bottom: 2px solid #e91e63; padding-bottom: 10px;">Customer Information</h2>
