@@ -3,6 +3,19 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Type for email data
+interface EmailData {
+  from: string;
+  to: string[];
+  replyTo: string;
+  subject: string;
+  html: string;
+  attachments?: Array<{
+    filename: string;
+    content: Buffer;
+  }>;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -64,7 +77,7 @@ export async function POST(request: NextRequest) {
     `;
 
     // Send email
-    const emailData: any = {
+    const emailData: EmailData = {
       from: 'NLDS Merch <onboarding@resend.dev>', // Resend's default domain
       to: ['bimsaramadurapperuma2003@gmail.com'], // Replace with your email
       replyTo: email,
