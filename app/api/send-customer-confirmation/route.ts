@@ -137,9 +137,8 @@ function generateEmailHTML(data: CustomerData): string {
           <h3 style="color: #1f2937; margin: 0 0 15px 0; font-size: 20px; font-weight: 600;">What happens next?</h3>
           <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
             <ul style="margin: 0; padding-left: 20px; color: #374151; line-height: 1.6;">
-              <li style="margin-bottom: 8px;">We'll review your proof of purchase within 24 hours</li>
+              <li style="margin-bottom: 8px;">We'll review your proof of purchase</li>
               <li style="margin-bottom: 8px;">Once verified, we'll prepare your order for ${data.attendingEvent ? 'pickup at NLDS 2025' : 'delivery'}</li>
-              <li style="margin-bottom: 8px;">You'll receive updates via email about your order status</li>
               <li>If you have any questions, please contact us with your Order ID</li>
             </ul>
           </div>
