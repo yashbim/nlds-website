@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
@@ -12,12 +11,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-// export const metadata: Metadata = {
-//   title: "NLDS 2025",
-//   description:
-//     "Join the ultimate NLDS event with a thrilling Squid Game theme. Are you ready to play?",
-// };
 
 export default function RootLayout({
   children,

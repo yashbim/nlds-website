@@ -132,7 +132,6 @@ export default function Cart() {
                   </div>
                   <div className="flex justify-between text-gray-300 text-sm">
                     <span>Can be collected on the event day or will be handed over to your entity</span>
-                    {/* <span>Free</span> */}
                   </div>
                   <div className="border-t border-white/20 pt-3">
                     <div className="flex justify-between text-white text-lg font-semibold">
@@ -172,12 +171,21 @@ export default function Cart() {
   );
 }
 
+interface CartItem {
+  id: string;
+  image: string;
+  name: string;
+  size?: string;
+  price: number;
+  quantity: number;
+}
+
 function CartItemCard({
   item,
   onUpdateQuantity,
   onRemove,
 }: {
-  item: any;
+  item: CartItem;
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;
 }) {
