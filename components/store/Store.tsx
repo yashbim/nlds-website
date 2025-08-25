@@ -16,9 +16,14 @@ export default function Store() {
     const productDetails = MERCH_ITEMS.find(item => item.name === productName);
     
     if (productDetails) {
+      // Convert price to number if it's a string
+      const price = typeof productDetails.price === 'string' 
+        ? parseFloat(productDetails.price.replace(/[^\d.-]/g, '')) 
+        : productDetails.price;
+
       addToCart({
         name: productName,
-        price: productDetails.price,
+        price: price, // Now guaranteed to be a number
         image: Array.isArray(productDetails.images) ? productDetails.images[0] : productDetails.images[0],
         size,
         quantity,
@@ -145,6 +150,11 @@ function ProductCard({
     setTouchStartX(null);
   };
 
+  // Convert price to number for display
+  const displayPrice = typeof product.price === 'string' 
+    ? parseFloat(product.price.replace(/[^\d.-]/g, '')) 
+    : product.price;
+
   return (
     <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full flex flex-col">
       
@@ -187,7 +197,7 @@ function ProductCard({
       {/* Content section */}
       <div className="p-4 text-center flex flex-col flex-grow space-y-4">
         <h3 className="text-lg font-semibold text-white">{product.name}</h3>
-        <p className="text-gray-300 text-xl font-medium">{product.price} LKR</p>
+        <p className="text-gray-300 text-xl font-medium">{displayPrice} LKR</p>
 
         {/* Size Selector */}
         {product.type === "tshirt" && product.sizes && (
