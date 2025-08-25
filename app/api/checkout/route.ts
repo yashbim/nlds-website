@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import type { EmailParams } from 'resend';
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -64,14 +66,14 @@ export async function POST(request: NextRequest) {
     `;
 
     // Send email
-    const emailData: any = {
-      from: 'NLDS Merch <onboarding@resend.dev>', // Resend's default domain
-      to: ['bimsaramadurapperuma2003@gmail.com'], // Replace with your email
+    const emailData: EmailParams = {
+      from: 'NLDS Merch <onboarding@resend.dev>',
+      to: ['bimsaramadurapperuma2003@gmail.com'],
       replyTo: email,
       subject: `NLDS 2025 Merch - ${name}`,
       html: emailHtml,
     };
-
+    
     // Add attachment if exists
     if (attachment) {
       emailData.attachments = [attachment];
