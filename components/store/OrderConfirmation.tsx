@@ -50,13 +50,13 @@ export default function OrderConfirmation() {
                 <div className="w-6 h-6 bg-squid-teal rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-sm font-bold">1</span>
                 </div>
-                <p>We'll review your order and proof of purchase</p>
+                <p>We&apos;ll review your order and proof of purchase</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 bg-squid-teal rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-sm font-bold">2</span>
                 </div>
-                <p>You'll receive a confirmation email within 24 hours</p>
+                <p>You&apos;ll receive a confirmation email within 24 hours</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 bg-squid-teal rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">

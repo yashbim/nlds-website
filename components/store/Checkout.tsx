@@ -251,10 +251,10 @@ export default function Checkout() {
             <div className="text-6xl mb-6">✅</div>
             <h2 className="text-3xl font-semibold text-white mb-4">Order Submitted Successfully!</h2>
             <p className="text-gray-300 mb-4">
-              Thank you for your purchase! We've received your order and proof of purchase.
+              Thank you for your purchase! We have received your order and proof of purchase.
             </p>
             <p className="text-gray-400 text-sm mb-8">
-              You'll receive a confirmation email shortly. Redirecting to confirmation page...
+              You&apos;ll receive a confirmation email shortly. Redirecting to confirmation page...
             </p>
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-squid-teal mx-auto"></div>
           </div>
