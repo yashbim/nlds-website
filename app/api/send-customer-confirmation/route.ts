@@ -1,6 +1,7 @@
 // app/api/send-customer-confirmation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { Client } from 'node-mailjet';
+import { supabaseAdmin } from '@/lib/supabase';
 
 const mailjet = new Client({
   apiKey: process.env.MAILJET_API_KEY!,
@@ -33,6 +34,81 @@ function generateOrderId(): string {
   const timestamp = Date.now().toString();
   const random = Math.random().toString(36).substring(2, 8).toUpperCase();
   return `NLDS-${timestamp.slice(-6)}-${random}`;
+}
+
+function generateOrderItemsSummary(cartItems: CartItem[]): string {
+  return cartItems.map(item => {
+    const sizeText = item.size ? ` (${item.size})` : '';
+    return `${item.name}${sizeText} x${item.quantity}`;
+  }).join(', ');
+}
+
+async function saveOrderToDatabase(customerData: CustomerData) {
+  try {
+    // Generate order items summary string
+    const orderItemsSummary = generateOrderItemsSummary(customerData.cartItems);
+
+    // Insert order into orders table
+    const { data: orderData, error: orderError } = await supabaseAdmin
+      .from('orders')
+      .insert({
+        order_id: customerData.orderId,
+        customer_name: customerData.name,
+        customer_email: customerData.email,
+        contact_number: customerData.contactNumber,
+        home_address: customerData.homeAddress,
+        entity: customerData.entity,
+        attending_event: customerData.attendingEvent,
+        total_items: customerData.totalItems,
+        total_amount: customerData.totalAmount,
+        order_date: customerData.orderDate,
+        order_items_summary: orderItemsSummary,
+        email_sent: false // Will be updated after successful email send
+      })
+      .select('id')
+      .single();
+
+    if (orderError) {
+      console.error('Error inserting order:', orderError);
+      throw orderError;
+    }
+
+    // Insert order items into order_items table
+    const orderItems = customerData.cartItems.map(item => ({
+      order_id: orderData.id,
+      item_id: item.id,
+      item_name: item.name,
+      item_size: item.size || null,
+      price: item.price,
+      quantity: item.quantity,
+      total_price: item.price * item.quantity
+    }));
+
+    const { error: itemsError } = await supabaseAdmin
+      .from('order_items')
+      .insert(orderItems);
+
+    if (itemsError) {
+      console.error('Error inserting order items:', itemsError);
+      throw itemsError;
+    }
+
+    return orderData.id;
+  } catch (error) {
+    console.error('Database save error:', error);
+    throw error;
+  }
+}
+
+async function updateEmailSentStatus(orderId: string, emailSent: boolean) {
+  const { error } = await supabaseAdmin
+    .from('orders')
+    .update({ email_sent: emailSent })
+    .eq('order_id', orderId);
+
+  if (error) {
+    console.error('Error updating email status:', error);
+  }
 }
 
 function formatCartItemsHTML(cartItems: CartItem[]): string {
@@ -175,6 +251,10 @@ export async function POST(request: NextRequest) {
     const orderId = generateOrderId();
     const customerData: CustomerData = { ...data, orderId };
 
+    // Save order to database first
+    const dbOrderId = await saveOrderToDatabase(customerData);
+    console.log(`Order saved to database with ID: ${dbOrderId}`);
+
     // Send email via Mailjet
     const emailRequest = await mailjet
       .post('send', { version: 'v3.1' })
@@ -197,22 +277,29 @@ export async function POST(request: NextRequest) {
         ]
       });
 
-    if (emailRequest.response.status === 200) {
+    // Update email sent status based on email success
+    const emailSent = emailRequest.response.status === 200;
+    await updateEmailSentStatus(orderId, emailSent);
+
+    if (emailSent) {
       return NextResponse.json({ 
         success: true, 
-        message: 'Confirmation email sent successfully',
-        orderId: orderId
+        message: 'Order saved and confirmation email sent successfully',
+        orderId: orderId,
+        dbOrderId: dbOrderId
       });
     } else {
       console.error('Mailjet error:', emailRequest.response.data);
       return NextResponse.json({ 
         success: false, 
-        message: 'Failed to send confirmation email' 
+        message: 'Order saved but failed to send confirmation email',
+        orderId: orderId,
+        dbOrderId: dbOrderId
       }, { status: 500 });
     }
 
   } catch (error) {
-    console.error('Error sending customer confirmation:', error);
+    console.error('Error processing order:', error);
     return NextResponse.json({ 
       success: false, 
       message: 'Internal server error' 
