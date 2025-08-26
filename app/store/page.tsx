@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import RegisterSection from "@/components/store/Store";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Store",
@@ -11,6 +12,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <RegisterSection />
+      <Footer />
     </div>
   );
 }
