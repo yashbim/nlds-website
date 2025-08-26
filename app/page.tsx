@@ -3,7 +3,7 @@
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import AboutSection from "../components/AboutSection";
-import RegisterSection from "../components/registration/Register";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,8 +19,7 @@ export default function Home() {
         {/* Content sections that will scroll over the hero */}
         <hr></hr>
         <AboutSection />
-        {/* <hr></hr>
-        <RegisterSection /> */}
+        <Footer />
       </div>
     </div>
   );
