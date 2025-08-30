@@ -1,7 +1,7 @@
 // app/api/send-customer-confirmation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { Client } from 'node-mailjet';
-import { supabaseAdmin } from '@/lib/supabase';
+import { yugabyteDB } from '@/lib/yugabyte';
 
 const mailjet = new Client({
   apiKey: process.env.MAILJET_API_KEY!,
@@ -44,70 +44,87 @@ function generateOrderItemsSummary(cartItems: CartItem[]): string {
 }
 
 async function saveOrderToDatabase(customerData: CustomerData) {
+  const client = await yugabyteDB.connect();
+  
   try {
+    await client.query('BEGIN');
+
     // Generate order items summary string
     const orderItemsSummary = generateOrderItemsSummary(customerData.cartItems);
 
     // Insert order into orders table
-    const { data: orderData, error: orderError } = await supabaseAdmin
-      .from('orders')
-      .insert({
-        order_id: customerData.orderId,
-        customer_name: customerData.name,
-        customer_email: customerData.email,
-        contact_number: customerData.contactNumber,
-        home_address: customerData.homeAddress,
-        entity: customerData.entity,
-        attending_event: customerData.attendingEvent,
-        total_items: customerData.totalItems,
-        total_amount: customerData.totalAmount,
-        order_date: customerData.orderDate,
-        order_items_summary: orderItemsSummary,
-        email_sent: false // Will be updated after successful email send
-      })
-      .select('id')
-      .single();
+    const orderQuery = `
+      INSERT INTO orders (
+        order_id, customer_name, customer_email, contact_number, 
+        home_address, entity, attending_event, total_items, 
+        total_amount, order_date, order_items_summary, email_sent
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      RETURNING id
+    `;
 
-    if (orderError) {
-      console.error('Error inserting order:', orderError);
-      throw orderError;
-    }
+    const orderValues = [
+      customerData.orderId,
+      customerData.name,
+      customerData.email,
+      customerData.contactNumber,
+      customerData.homeAddress,
+      customerData.entity,
+      customerData.attendingEvent,
+      customerData.totalItems,
+      customerData.totalAmount,
+      customerData.orderDate,
+      orderItemsSummary,
+      false // email_sent
+    ];
+
+    const orderResult = await client.query(orderQuery, orderValues);
+    const dbOrderId = orderResult.rows[0].id;
 
     // Insert order items into order_items table
-    const orderItems = customerData.cartItems.map(item => ({
-      order_id: orderData.id,
-      item_id: item.id,
-      item_name: item.name,
-      item_size: item.size || null,
-      price: item.price,
-      quantity: item.quantity,
-      total_price: item.price * item.quantity
-    }));
+    const itemQuery = `
+      INSERT INTO order_items (
+        order_id, item_id, item_name, item_size, 
+        price, quantity, total_price
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `;
 
-    const { error: itemsError } = await supabaseAdmin
-      .from('order_items')
-      .insert(orderItems);
-
-    if (itemsError) {
-      console.error('Error inserting order items:', itemsError);
-      throw itemsError;
+    for (const item of customerData.cartItems) {
+      const itemValues = [
+        dbOrderId,
+        item.id,
+        item.name,
+        item.size || null,
+        item.price,
+        item.quantity,
+        item.price * item.quantity
+      ];
+      
+      await client.query(itemQuery, itemValues);
     }
 
-    return orderData.id;
+    await client.query('COMMIT');
+    console.log(`Order saved to YugabyteDB with ID: ${dbOrderId}`);
+    
+    return dbOrderId;
   } catch (error) {
+    await client.query('ROLLBACK');
     console.error('Database save error:', error);
     throw error;
+  } finally {
+    client.release();
   }
 }
 
 async function updateEmailSentStatus(orderId: string, emailSent: boolean) {
-  const { error } = await supabaseAdmin
-    .from('orders')
-    .update({ email_sent: emailSent })
-    .eq('order_id', orderId);
-
-  if (error) {
+  const client = await yugabyteDB.connect();
+  
+  try {
+    const updateQuery = 'UPDATE orders SET email_sent = $1, updated_at = CURRENT_TIMESTAMP WHERE order_id = $2';
+    await client.query(updateQuery, [emailSent, orderId]);
+  } catch (error) {
     console.error('Error updating email status:', error);
+  } finally {
+    client.release();
   }
 }
 
