@@ -176,8 +176,14 @@ interface CartItem {
   image: string;
   name: string;
   size?: string;
+  color?: string;
   price: number;
   quantity: number;
+  // New properties for merch packs
+  isMerchPack?: boolean;
+  tshirtSize?: string;
+  wristbandColor?: string;
+  merchPackId?: string;
 }
 
 function CartItemCard({
@@ -196,6 +202,34 @@ function CartItemCard({
     }
   };
 
+  // Helper function to render item specifications
+  const renderItemSpecs = () => {
+    if (item.isMerchPack) {
+      return (
+        <div className="space-y-1">
+          {item.tshirtSize && (
+            <p className="text-gray-400 text-sm">T-shirt Size: {item.tshirtSize}</p>
+          )}
+          {item.wristbandColor && (
+            <p className="text-gray-400 text-sm">Wristband Color: {item.wristbandColor}</p>
+          )}
+          <p className="text-squid-teal text-xs font-medium">🎁 Merch Pack</p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="space-y-1">
+          {item.size && (
+            <p className="text-gray-400 text-sm">Size: {item.size}</p>
+          )}
+          {item.color && (
+            <p className="text-gray-400 text-sm">Color: {item.color}</p>
+          )}
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col sm:flex-row gap-4">
@@ -207,6 +241,11 @@ function CartItemCard({
               fill
               className="object-contain p-2"
             />
+            {item.isMerchPack && (
+              <div className="absolute top-1 right-1 bg-squid-teal text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                PACK
+              </div>
+            )}
           </div>
         </div>
 
@@ -214,10 +253,8 @@ function CartItemCard({
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
             <div>
               <h3 className="text-lg font-semibold text-white mb-1">{item.name}</h3>
-              {item.size && (
-                <p className="text-gray-400 text-sm mb-2">Size: {item.size}</p>
-              )}
-              <p className="text-squid-teal font-semibold text-lg">
+              {renderItemSpecs()}
+              <p className="text-squid-teal font-semibold text-lg mt-2">
                 {item.price.toLocaleString()} LKR
               </p>
             </div>

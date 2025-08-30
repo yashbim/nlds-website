@@ -70,6 +70,7 @@ CREATE TABLE merch_packs (
 ALTER TABLE order_items 
 ADD COLUMN tshirt_size VARCHAR(10),
 ADD COLUMN wristband_color VARCHAR(50),
+ADD COLUMN item_color VARCHAR(50),
 ADD COLUMN is_merch_pack BOOLEAN DEFAULT FALSE,
 ADD COLUMN merch_pack_id VARCHAR(255);
 
@@ -96,3 +97,17 @@ CREATE TRIGGER trigger_update_merch_packs_updated_at
   BEFORE UPDATE ON merch_packs
   FOR EACH ROW
   EXECUTE FUNCTION update_merch_packs_updated_at();
+
+-- Drop existing merch_packs table if it has wrong structure
+DROP TABLE IF EXISTS merch_packs;
+
+-- Create new merch_packs table with correct structure
+CREATE TABLE merch_packs (
+  id SERIAL PRIMARY KEY,
+  customer VARCHAR(255) NOT NULL,
+  customer_entity VARCHAR(255) NOT NULL,
+  order_date TIMESTAMP NOT NULL,
+  tshirt_size VARCHAR(50),
+  wristband_color VARCHAR(50),
+  created_at TIMESTAMP DEFAULT NOW()
+);

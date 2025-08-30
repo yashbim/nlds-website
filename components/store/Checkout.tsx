@@ -15,6 +15,21 @@ interface FormData {
   proofOfPurchase: File | null;
 }
 
+interface CartItem {
+  id: string;
+  image: string;
+  name: string;
+  size?: string;
+  color?: string;
+  price: number;
+  quantity: number;
+  // Merch pack properties
+  isMerchPack?: boolean;
+  tshirtSize?: string;
+  wristbandColor?: string;
+  merchPackId?: string;
+}
+
 export default function Checkout() {
   const router = useRouter();
   const { items: cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
@@ -123,13 +138,18 @@ export default function Checkout() {
 
   const sendCustomerConfirmation = async () => {
     try {
-      // Prepare cart items data (without images for email)
+      // Prepare cart items data with merch pack details
       const cartItemsForEmail = cartItems.map(item => ({
         id: item.id,
         name: item.name,
         price: item.price,
         quantity: item.quantity,
-        size: item.size
+        size: item.size,
+        color: item.color,
+        isMerchPack: item.isMerchPack || false,
+        tshirtSize: item.tshirtSize,
+        wristbandColor: item.wristbandColor,
+        merchPackId: item.merchPackId
       }));
 
       const customerData = {
@@ -182,14 +202,34 @@ export default function Checkout() {
       submitData.append("entity", formData.entity);
       submitData.append("attendingEvent", formData.attendingEvent.toString());
       
-      // Cart summary
-      const cartSummary = cartItems.map(item => 
-        `${item.name}${item.size ? ` (Size: ${item.size})` : ""} - Qty: ${item.quantity} - ${item.price.toLocaleString()} LKR each`
-      ).join('\n');
+      // Enhanced cart summary with merch pack details
+      const cartSummary = cartItems.map(item => {
+        let itemDetails = item.name;
+        
+        if (item.isMerchPack) {
+          const specs = [];
+          if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
+          if (item.wristbandColor) specs.push(`Wristband: ${item.wristbandColor}`);
+          if (specs.length > 0) itemDetails += ` (${specs.join(', ')})`;
+          itemDetails += ' [MERCH PACK]';
+        } else {
+          if (item.size) itemDetails += ` (Size: ${item.size})`;
+          if (item.color) itemDetails += ` (Color: ${item.color})`;
+        }
+        
+        return `${itemDetails} - Qty: ${item.quantity} - ${item.price.toLocaleString()} LKR each`;
+      }).join('\n');
       
       submitData.append("cartItems", cartSummary);
       submitData.append("totalItems", getTotalItems().toString());
       submitData.append("totalAmount", `${getTotalPrice().toLocaleString()} LKR`);
+      
+      // Check if order contains merch packs
+      const hasMerchPack = cartItems.some(item => item.isMerchPack);
+      submitData.append("hasMerchPack", hasMerchPack.toString());
+      
+      // Add detailed cart items as JSON for backend processing
+      submitData.append("cartItemsJson", JSON.stringify(cartItems));
       
       // Order timestamp
       submitData.append("orderDate", new Date().toISOString());
@@ -227,6 +267,40 @@ export default function Checkout() {
       console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Helper function to render cart item details in checkout
+  const renderCheckoutItemDetails = (item: CartItem) => {
+    if (item.isMerchPack) {
+      return (
+        <div>
+          <h4 className="text-white font-medium">{item.name}</h4>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="bg-squid-teal text-white text-xs px-2 py-1 rounded-full font-bold">PACK</span>
+          </div>
+          {item.tshirtSize && (
+            <p className="text-gray-400 text-sm">T-shirt: {item.tshirtSize}</p>
+          )}
+          {item.wristbandColor && (
+            <p className="text-gray-400 text-sm">Wristband: {item.wristbandColor}</p>
+          )}
+          <p className="text-gray-300">Qty: {item.quantity}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h4 className="text-white font-medium">{item.name}</h4>
+          {item.size && (
+            <p className="text-gray-400 text-sm">Size: {item.size}</p>
+          )}
+          {item.color && (
+            <p className="text-gray-400 text-sm">Color: {item.color}</p>
+          )}
+          <p className="text-gray-300">Qty: {item.quantity}</p>
+        </div>
+      );
     }
   };
 
@@ -306,13 +380,14 @@ export default function Checkout() {
                         fill
                         className="object-contain p-2"
                       />
+                      {item.isMerchPack && (
+                        <div className="absolute top-1 right-1 bg-squid-teal text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                          PACK
+                        </div>
+                      )}
                     </div>
                     <div className="flex-grow">
-                      <h4 className="text-white font-medium">{item.name}</h4>
-                      {item.size && (
-                        <p className="text-gray-400 text-sm">Size: {item.size}</p>
-                      )}
-                      <p className="text-gray-300">Qty: {item.quantity}</p>
+                      {renderCheckoutItemDetails(item)}
                     </div>
                     <div className="text-right">
                       <p className="text-squid-teal font-semibold">

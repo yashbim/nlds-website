@@ -3,6 +3,19 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  size?: string;
+  color?: string;
+  isMerchPack?: boolean;
+  tshirtSize?: string;
+  wristbandColor?: string;
+  merchPackId?: string;
+}
+
 // Type for email data
 interface EmailData {
   from: string;
@@ -14,6 +27,59 @@ interface EmailData {
     filename: string;
     content: Buffer;
   }>;
+}
+
+function formatCartItemsForEmail(cartItems: CartItem[]): string {
+  return cartItems.map(item => {
+    let itemDescription = item.name;
+    
+    if (item.isMerchPack) {
+      // Format merch pack items
+      const packDetails = [];
+      if (item.tshirtSize) packDetails.push(`T-shirt Size: ${item.tshirtSize}`);
+      if (item.wristbandColor) packDetails.push(`Wristband Color: ${item.wristbandColor}`);
+      
+      if (packDetails.length > 0) {
+        itemDescription += ` (${packDetails.join(', ')})`;
+      }
+      itemDescription += ' [MERCH PACK]';
+    } else {
+      // Format regular items
+      if (item.size) itemDescription += ` (Size: ${item.size})`;
+      if (item.color) itemDescription += ` (Color: ${item.color})`;
+    }
+    
+    return `${itemDescription} - Qty: ${item.quantity} - ${item.price.toLocaleString()} LKR each`;
+  }).join('\n');
+}
+
+function formatCartItemsHTML(cartItems: CartItem[]): string {
+  return cartItems.map(item => {
+    let itemName = item.name;
+    let itemSpecs = '';
+    
+    if (item.isMerchPack) {
+      const specs = [];
+      if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
+      if (item.wristbandColor) specs.push(`Wristband: ${item.wristbandColor}`);
+      if (specs.length > 0) itemSpecs = ` (${specs.join(', ')})`;
+      itemName += ` <span style="background: #06b6d4; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;">PACK</span>`;
+    } else {
+      const specs = [];
+      if (item.size) specs.push(`Size: ${item.size}`);
+      if (item.color) specs.push(`Color: ${item.color}`);
+      if (specs.length > 0) itemSpecs = ` (${specs.join(', ')})`;
+    }
+
+    return `
+      <tr style="border-bottom: 1px solid #e5e7eb;">
+        <td style="padding: 12px 0; font-weight: 500;">${itemName}${itemSpecs}</td>
+        <td style="padding: 12px 0; text-align: center;">${item.quantity}</td>
+        <td style="padding: 12px 0; text-align: right; font-weight: 600;">${item.price.toLocaleString()} LKR</td>
+        <td style="padding: 12px 0; text-align: right; font-weight: 700;">${(item.price * item.quantity).toLocaleString()} LKR</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 export async function POST(request: NextRequest) {
@@ -31,6 +97,16 @@ export async function POST(request: NextRequest) {
     const totalItems = formData.get('totalItems') as string;
     const totalAmount = formData.get('totalAmount') as string;
     const orderDate = formData.get('orderDate') as string;
+    const hasMerchPack = formData.get('hasMerchPack') === 'true';
+    
+    // Parse cart items JSON for detailed processing
+    let cartItemsData: CartItem[] = [];
+    try {
+      const cartItemsJson = formData.get('cartItemsJson') as string;
+      cartItemsData = JSON.parse(cartItemsJson);
+    } catch (error) {
+      console.error('Error parsing cart items JSON:', error);
+    }
     
     // Handle file upload
     const proofFile = formData.get('proofOfPurchase') as File;
@@ -45,10 +121,10 @@ export async function POST(request: NextRequest) {
       };
     }
 
-    // Create email content
+    // Create enhanced email content with merch pack support
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #e91e63; text-align: center;">New Merch Order</h1>
+        <h1 style="color: #e91e63; text-align: center;">New Merch Order ${hasMerchPack ? '🎁' : ''}</h1>
         
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h2 style="color: #333; border-bottom: 2px solid #e91e63; padding-bottom: 10px;">Customer Information</h2>
@@ -59,16 +135,41 @@ export async function POST(request: NextRequest) {
           <p><strong>Entity:</strong> ${entity}</p>
           <p><strong>Attending Event:</strong> ${attendingEvent ? 'Yes' : 'No'}</p>
           <p><strong>Order Date:</strong> ${new Date(orderDate).toLocaleString()}</p>
+          ${hasMerchPack ? '<p><strong>🎁 Contains Merch Pack:</strong> Yes</p>' : ''}
         </div>
 
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h2 style="color: #333; border-bottom: 2px solid #e91e63; padding-bottom: 10px;">Order Details</h2>
-          <div style="white-space: pre-line; margin: 10px 0;">${cartItems}</div>
+          
+          ${cartItemsData.length > 0 ? `
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+              <thead>
+                <tr style="background-color: #e3f2fd; border-bottom: 2px solid #2196f3;">
+                  <th style="padding: 10px; text-align: left; font-weight: bold;">Item</th>
+                  <th style="padding: 10px; text-align: center; font-weight: bold;">Qty</th>
+                  <th style="padding: 10px; text-align: right; font-weight: bold;">Price</th>
+                  <th style="padding: 10px; text-align: right; font-weight: bold;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${formatCartItemsHTML(cartItemsData)}
+              </tbody>
+            </table>
+          ` : `
+            <div style="white-space: pre-line; margin: 10px 0;">${cartItems}</div>
+          `}
+          
           <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 15px;">
             <p><strong>Total Items:</strong> ${totalItems}</p>
             <p style="font-size: 18px; color: #e91e63;"><strong>Total Amount: ${totalAmount}</strong></p>
           </div>
         </div>
+
+        ${hasMerchPack ? `
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4caf50;">
+            <p style="margin: 0; color: #2e7d32; font-weight: bold;">🎁 This order contains merch pack(s) with custom selections!</p>
+          </div>
+        ` : ''}
 
         <div style="text-align: center; margin-top: 30px; padding: 20px; background: #e8f5e8; border-radius: 8px;">
           <p style="margin: 0; color: #666;">Proof of purchase has been attached to this email.</p>
@@ -81,7 +182,7 @@ export async function POST(request: NextRequest) {
       from: 'NLDS Merch <onboarding@resend.dev>', // Resend's default domain
       to: ['bimsaramadurapperuma2003@gmail.com'], // Replace with your email
       replyTo: email,
-      subject: `NLDS 2025 Merch - ${name}`,
+      subject: `NLDS 2025 Merch ${hasMerchPack ? '🎁 ' : ''}Order - ${name}`,
       html: emailHtml,
     };
 
@@ -100,33 +201,83 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send confirmation email to customer
-    await resend.emails.send({
-      from: 'Squid Game Store <onboarding@resend.dev>',
-      to: [email],
-      subject: 'Order Confirmation - Squid Game Store',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #e91e63; text-align: center;">Order Confirmation</h1>
+    // Send enhanced confirmation email to customer
+    const customerEmailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #e91e63; text-align: center;">Order Confirmation ${hasMerchPack ? '🎁' : ''}</h1>
+        
+        <p>Dear ${name},</p>
+        
+        <p>Thank you for your order! We have received your purchase and are processing it.</p>
+        
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3>Order Summary:</h3>
           
-          <p>Dear ${name},</p>
+          ${cartItemsData.length > 0 ? `
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+              <thead>
+                <tr style="background-color: #f9f9f9; border-bottom: 1px solid #ddd;">
+                  <th style="padding: 8px; text-align: left; font-size: 14px;">Item</th>
+                  <th style="padding: 8px; text-align: center; font-size: 14px;">Qty</th>
+                  <th style="padding: 8px; text-align: right; font-size: 14px;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${cartItemsData.map(item => {
+                  let itemDisplay = item.name;
+                  if (item.isMerchPack) {
+                    const specs = [];
+                    if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
+                    if (item.wristbandColor) specs.push(`Wristband: ${item.wristbandColor}`);
+                    if (specs.length > 0) itemDisplay += ` (${specs.join(', ')})`;
+                    itemDisplay += ' 🎁';
+                  } else {
+                    if (item.size) itemDisplay += ` (${item.size})`;
+                    if (item.color) itemDisplay += ` (${item.color})`;
+                  }
+                  
+                  return `
+                    <tr style="border-bottom: 1px solid #eee;">
+                      <td style="padding: 8px; font-size: 14px;">${itemDisplay}</td>
+                      <td style="padding: 8px; text-align: center; font-size: 14px;">${item.quantity}</td>
+                      <td style="padding: 8px; text-align: right; font-size: 14px; font-weight: bold;">${(item.price * item.quantity).toLocaleString()} LKR</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          ` : ''}
           
-          <p>Thank you for your order! We have received your purchase and are processing it.</p>
-          
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3>Order Summary:</h3>
+          <div style="border-top: 2px solid #e91e63; padding-top: 15px; margin-top: 15px;">
             <p><strong>Total Items:</strong> ${totalItems}</p>
-            <p><strong>Total Amount:</strong> ${totalAmount}</p>
-            <p><strong>Order Date:</strong> ${new Date(orderDate).toLocaleString()}</p>
+            <p style="font-size: 18px; color: #e91e63;"><strong>Total Amount: ${totalAmount}</strong></p>
           </div>
-
-          <p>We will review your proof of purchase and contact you soon with further details.</p>
-          
-          <p style="text-align: center; margin-top: 30px;">
-            <strong>Thank you for choosing Squid Game Store!</strong>
-          </p>
+          <p><strong>Order Date:</strong> ${new Date(orderDate).toLocaleString()}</p>
         </div>
-      `,
+
+        ${hasMerchPack ? `
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #4caf50;">
+            <h4 style="color: #2e7d32; margin: 0 0 8px 0;">🎁 Merch Pack Order</h4>
+            <p style="margin: 0; color: #2e7d32; font-size: 14px;">
+              Your order includes custom merch pack(s) with your selected t-shirt sizes and wristband colors. 
+              We'll prepare your personalized items according to your specifications.
+            </p>
+          </div>
+        ` : ''}
+
+        <p>We will review your proof of purchase and contact you soon with further details.</p>
+        
+        <p style="text-align: center; margin-top: 30px;">
+          <strong>Thank you for choosing NLDS 2025 Store!</strong>
+        </p>
+      </div>
+    `;
+
+    await resend.emails.send({
+      from: 'NLDS Store <onboarding@resend.dev>',
+      to: [email],
+      subject: `Order Confirmation ${hasMerchPack ? '🎁 ' : ''}- NLDS Store`,
+      html: customerEmailHtml,
     });
 
     return NextResponse.json(

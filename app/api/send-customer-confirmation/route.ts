@@ -14,6 +14,11 @@ interface CartItem {
   price: number;
   quantity: number;
   size?: string;
+  color?: string;
+  isMerchPack?: boolean;
+  tshirtSize?: string;
+  wristbandColor?: string;
+  merchPackId?: string;
 }
 
 interface CustomerData {
@@ -38,15 +43,66 @@ function generateOrderId(): string {
 
 function generateOrderItemsSummary(cartItems: CartItem[]): string {
   return cartItems.map(item => {
-    const sizeText = item.size ? ` (${item.size})` : '';
-    return `${item.name}${sizeText} x${item.quantity}`;
+    let itemText = item.name;
+    
+    if (item.isMerchPack) {
+      const packSpecs = [];
+      if (item.tshirtSize) packSpecs.push(`Tee:${item.tshirtSize}`);
+      if (item.wristbandColor) packSpecs.push(`Band:${item.wristbandColor}`);
+      if (packSpecs.length > 0) itemText += `(${packSpecs.join(',')})`;
+      itemText += '[PACK]';
+    } else {
+      const specs = [];
+      if (item.size) specs.push(item.size);
+      if (item.color) specs.push(item.color);
+      if (specs.length > 0) itemText += `(${specs.join(',')})`;
+    }
+    
+    return `${itemText} x${item.quantity}`;
   }).join(', ');
+}
+
+async function saveMerchPackToDatabase(item: CartItem, customerData: CustomerData) {
+  if (!item.isMerchPack) return;
+
+  try {
+    console.log('Saving merch pack to database:', {
+      customer: customerData.name,
+      customer_entity: customerData.entity,
+      order_date: customerData.orderDate,
+      tshirt_size: item.tshirtSize,
+      wristband_color: item.wristbandColor
+    });
+
+    const { data, error } = await supabaseAdmin
+      .from('merch_packs')
+      .insert({
+        customer: customerData.name,
+        customer_entity: customerData.entity,
+        order_date: customerData.orderDate,
+        tshirt_size: item.tshirtSize || null,
+        wristband_color: item.wristbandColor || null
+      });
+
+    if (error) {
+      console.error('Merch pack database error:', error);
+      throw error;
+    }
+
+    console.log('Merch pack saved successfully:', data);
+  } catch (error) {
+    console.error('Error saving merch pack:', error);
+    throw error; // Throw error to ensure we know if this fails
+  }
 }
 
 async function saveOrderToDatabase(customerData: CustomerData) {
   try {
     // Generate order items summary string
     const orderItemsSummary = generateOrderItemsSummary(customerData.cartItems);
+    const hasMerchPack = customerData.cartItems.some(item => item.isMerchPack);
+
+    console.log('Saving order to database...');
 
     // Insert order into orders table
     const { data: orderData, error: orderError } = await supabaseAdmin
@@ -63,7 +119,8 @@ async function saveOrderToDatabase(customerData: CustomerData) {
         total_amount: customerData.totalAmount,
         order_date: customerData.orderDate,
         order_items_summary: orderItemsSummary,
-        email_sent: false // Will be updated after successful email send
+        has_merch_pack: hasMerchPack,
+        email_sent: false
       })
       .select('id')
       .single();
@@ -73,16 +130,35 @@ async function saveOrderToDatabase(customerData: CustomerData) {
       throw orderError;
     }
 
+    console.log('Order saved with ID:', orderData.id);
+
     // Insert order items into order_items table
-    const orderItems = customerData.cartItems.map(item => ({
-      order_id: orderData.id,
-      item_id: item.id,
-      item_name: item.name,
-      item_size: item.size || null,
-      price: item.price,
-      quantity: item.quantity,
-      total_price: item.price * item.quantity
-    }));
+    const orderItems = customerData.cartItems.map(item => {
+      console.log('Processing item for order_items:', {
+        item_name: item.name,
+        is_merch_pack: item.isMerchPack,
+        tshirt_size: item.tshirtSize,
+        wristband_color: item.wristbandColor
+      });
+
+      return {
+        order_id: orderData.id,
+        item_id: item.id,
+        item_name: item.name,
+        item_size: item.size || null,
+        item_color: item.color || null,
+        price: item.price,
+        quantity: item.quantity,
+        total_price: item.price * item.quantity,
+        // Merch pack specific fields
+        is_merch_pack: item.isMerchPack || false,
+        tshirt_size: item.tshirtSize || null,
+        wristband_color: item.wristbandColor || null,
+        merch_pack_id: item.merchPackId || null
+      };
+    });
+
+    console.log('Inserting order items:', orderItems);
 
     const { error: itemsError } = await supabaseAdmin
       .from('order_items')
@@ -91,6 +167,16 @@ async function saveOrderToDatabase(customerData: CustomerData) {
     if (itemsError) {
       console.error('Error inserting order items:', itemsError);
       throw itemsError;
+    }
+
+    console.log('Order items saved successfully');
+
+    // Save merch pack configurations to merch_packs table
+    for (const item of customerData.cartItems) {
+      if (item.isMerchPack) {
+        console.log('Processing merch pack item:', item);
+        await saveMerchPackToDatabase(item, customerData);
+      }
     }
 
     return orderData.id;
@@ -112,17 +198,37 @@ async function updateEmailSentStatus(orderId: string, emailSent: boolean) {
 }
 
 function formatCartItemsHTML(cartItems: CartItem[]): string {
-  return cartItems.map(item => `
+  return cartItems.map(item => {
+    let itemName = item.name;
+    let itemSpecs = '';
+    
+    if (item.isMerchPack) {
+      const specs = [];
+      if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
+      if (item.wristbandColor) specs.push(`Wristband: ${item.wristbandColor}`);
+      if (specs.length > 0) itemSpecs = ` (${specs.join(', ')})`;
+      itemName += ` <span style="background: #06b6d4; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 8px;">PACK</span>`;
+    } else {
+      const specs = [];
+      if (item.size) specs.push(`Size: ${item.size}`);
+      if (item.color) specs.push(`Color: ${item.color}`);
+      if (specs.length > 0) itemSpecs = ` (${specs.join(', ')})`;
+    }
+
+    return `
     <tr style="border-bottom: 1px solid #e5e7eb;">
-      <td style="padding: 12px 0; font-weight: 500;">${item.name}${item.size ? ` (Size: ${item.size})` : ''}</td>
+      <td style="padding: 12px 0; font-weight: 500;">${itemName}${itemSpecs}</td>
       <td style="padding: 12px 0; text-align: center;">${item.quantity}</td>
       <td style="padding: 12px 0; text-align: right; font-weight: 600;">${item.price.toLocaleString()} LKR</td>
       <td style="padding: 12px 0; text-align: right; font-weight: 700;">${(item.price * item.quantity).toLocaleString()} LKR</td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function generateEmailHTML(data: CustomerData): string {
+  const hasMerchPack = data.cartItems.some(item => item.isMerchPack);
+  
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -136,7 +242,7 @@ function generateEmailHTML(data: CustomerData): string {
         <!-- Header -->
         <div style="background: linear-gradient(135deg, #1f2937 0%, #374151 100%); padding: 30px; text-align: center;">
           <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">NLDS 2025</h1>
-          <p style="color: #d1d5db; margin: 10px 0 0 0; font-size: 16px;">Order Confirmation</p>
+          <p style="color: #d1d5db; margin: 10px 0 0 0; font-size: 16px;">Order Confirmation ${hasMerchPack ? '🎁' : ''}</p>
         </div>
 
         <!-- Order Confirmed Message -->
@@ -144,6 +250,11 @@ function generateEmailHTML(data: CustomerData): string {
           <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
           <h2 style="color: #065f46; margin: 0 0 10px 0; font-size: 24px;">Order Confirmed!</h2>
           <p style="color: #374151; margin: 0; font-size: 16px;">Thank you for your purchase. We've received your order and proof of purchase.</p>
+          ${hasMerchPack ? `
+            <div style="margin-top: 15px; padding: 10px; background-color: #dbeafe; border-radius: 6px; border-left: 4px solid #3b82f6;">
+              <p style="margin: 0; color: #1e40af; font-weight: 600; font-size: 14px;">🎁 Your order includes custom merch pack selections!</p>
+            </div>
+          ` : ''}
         </div>
 
         <!-- Customer Details -->
@@ -188,6 +299,16 @@ function generateEmailHTML(data: CustomerData): string {
               ${formatCartItemsHTML(data.cartItems)}
             </tbody>
           </table>
+          
+          ${hasMerchPack ? `
+            <div style="margin-top: 20px; padding: 15px; background-color: #eff6ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
+              <h4 style="color: #1e40af; margin: 0 0 8px 0; font-size: 16px; font-weight: 600;">🎁 Merch Pack Information</h4>
+              <p style="color: #374151; margin: 0; font-size: 14px; line-height: 1.5;">
+                Your order includes custom merch pack(s) with your selected t-shirt sizes and wristband colors. 
+                Each pack will be prepared according to your specific selections.
+              </p>
+            </div>
+          ` : ''}
         </div>
 
         <!-- Order Summary -->
@@ -215,6 +336,7 @@ function generateEmailHTML(data: CustomerData): string {
             <ul style="margin: 0; padding-left: 20px; color: #374151; line-height: 1.6;">
               <li style="margin-bottom: 8px;">We'll review your proof of purchase</li>
               <li style="margin-bottom: 8px;">Once verified, we'll prepare your order for ${data.attendingEvent ? 'pickup at NLDS 2025' : 'delivery'}</li>
+              ${hasMerchPack ? '<li style="margin-bottom: 8px;">Your merch pack items will be customized according to your selections</li>' : ''}
               <li>If you have any questions, please contact us with your Order ID</li>
             </ul>
           </div>
@@ -247,13 +369,21 @@ export async function POST(request: NextRequest) {
   try {
     const data: Omit<CustomerData, 'orderId'> = await request.json();
     
+    console.log('Received order data:', data);
+    
     // Generate unique order ID
     const orderId = generateOrderId();
     const customerData: CustomerData = { ...data, orderId };
 
+    console.log('Processing order with ID:', orderId);
+    console.log('Cart items:', customerData.cartItems);
+
     // Save order to database first
     const dbOrderId = await saveOrderToDatabase(customerData);
     console.log(`Order saved to database with ID: ${dbOrderId}`);
+
+    // Check if order contains merch packs for email subject
+    const hasMerchPack = customerData.cartItems.some(item => item.isMerchPack);
 
     // Send email via Mailjet
     const emailRequest = await mailjet
@@ -271,7 +401,7 @@ export async function POST(request: NextRequest) {
                 Name: customerData.name
               }
             ],
-            Subject: `Order Confirmation - ${orderId} - NLDS 2025`,
+            Subject: `Order Confirmation - ${orderId}${hasMerchPack ? ' 🎁' : ''} - NLDS 2025`,
             HTMLPart: generateEmailHTML(customerData)
           }
         ]
@@ -286,7 +416,8 @@ export async function POST(request: NextRequest) {
         success: true, 
         message: 'Order saved and confirmation email sent successfully',
         orderId: orderId,
-        dbOrderId: dbOrderId
+        dbOrderId: dbOrderId,
+        hasMerchPack: hasMerchPack
       });
     } else {
       console.error('Mailjet error:', emailRequest.response.data);
