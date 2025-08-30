@@ -40,8 +40,8 @@ try:
     conn = psycopg2.connect(**db_params)
     cur = conn.cursor()
 
-    # Generate and insert 50 orders
-    for _ in range(50):
+    # Generate and insert 1000 orders
+    for _ in range(100):
         # Generate order data
         order_id_str = generate_order_id()
         customer_name = fake.name()
@@ -118,7 +118,7 @@ try:
 
     # Commit the transaction
     conn.commit()
-    print("Successfully inserted 50 orders with associated order items.")
+    print("Successfully inserted 1000 orders with associated order items.")
 
 except Exception as e:
     print(f"An error occurred: {e}")
