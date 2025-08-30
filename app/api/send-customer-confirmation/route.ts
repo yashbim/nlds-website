@@ -35,10 +35,19 @@ interface CustomerData {
   orderId: string;
 }
 
-function generateOrderId(): string {
-  const timestamp = Date.now().toString();
-  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-  return `NLDS-${timestamp.slice(-6)}-${random}`;
+function generateOrderId(customerName: string, entity: string): string {
+  // Clean customer name - remove spaces and special chars, take first 6 chars
+  const cleanName = customerName.replace(/[^a-zA-Z0-9]/g, '').substring(0, 6).toUpperCase();
+  
+  // Clean entity - remove spaces and special chars, take first 4 chars
+  const cleanEntity = entity.replace(/[^a-zA-Z0-9]/g, '').substring(0, 4).toUpperCase();
+  
+  // Generate timestamp in format YYYYMMDD-HHMMSS
+  const now = new Date();
+  const date = now.toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD
+  const time = now.toTimeString().slice(0, 8).replace(/:/g, ''); // HHMMSS
+  
+  return `NLDS-${cleanName}-${cleanEntity}-${date}-${time}`;
 }
 
 function generateOrderItemsSummary(cartItems: CartItem[]): string {
@@ -67,6 +76,7 @@ async function saveMerchPackToDatabase(item: CartItem, customerData: CustomerDat
 
   try {
     console.log('Saving merch pack to database:', {
+      order_id: customerData.orderId, // Use the same order ID
       customer: customerData.name,
       customer_entity: customerData.entity,
       order_date: customerData.orderDate,
@@ -77,6 +87,7 @@ async function saveMerchPackToDatabase(item: CartItem, customerData: CustomerDat
     const { data, error } = await supabaseAdmin
       .from('merch_packs')
       .insert({
+        order_id: customerData.orderId, // Add order ID reference
         customer: customerData.name,
         customer_entity: customerData.entity,
         order_date: customerData.orderDate,
@@ -132,7 +143,7 @@ async function saveOrderToDatabase(customerData: CustomerData) {
 
     console.log('Order saved with ID:', orderData.id);
 
-    // Insert order items into order_items table
+    // Insert order items into order_items table using the same order_id string
     const orderItems = customerData.cartItems.map(item => {
       console.log('Processing item for order_items:', {
         item_name: item.name,
@@ -142,7 +153,7 @@ async function saveOrderToDatabase(customerData: CustomerData) {
       });
 
       return {
-        order_id: orderData.id,
+        order_id: customerData.orderId, // Use the same order ID string, not the database ID
         item_id: item.id,
         item_name: item.name,
         item_size: item.size || null,
@@ -371,8 +382,8 @@ export async function POST(request: NextRequest) {
     
     console.log('Received order data:', data);
     
-    // Generate unique order ID
-    const orderId = generateOrderId();
+    // Generate unique order ID with customer info
+    const orderId = generateOrderId(data.name, data.entity);
     const customerData: CustomerData = { ...data, orderId };
 
     console.log('Processing order with ID:', orderId);
