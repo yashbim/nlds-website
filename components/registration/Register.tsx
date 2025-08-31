@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 
@@ -13,7 +13,7 @@ export default function RegisterSection() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/squid-game-bg.mp4" type="video/mp4" />
+        <source src="/squid-game-bg.webm" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -41,7 +41,7 @@ export default function RegisterSection() {
             height="600"
             title="NLDS 2025 Contact Form"
             className="rounded-lg w-full"
-            style={{ minHeight: '600px', border: 'none' }}
+            style={{ minHeight: "600px", border: "none" }}
           >
             Loading form...
           </iframe>

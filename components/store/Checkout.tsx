@@ -32,8 +32,13 @@ interface CartItem {
 
 export default function Checkout() {
   const router = useRouter();
-  const { items: cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
-  
+  const {
+    items: cartItems,
+    getTotalPrice,
+    getTotalItems,
+    clearCart,
+  } = useCart();
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -45,8 +50,11 @@ export default function Checkout() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showContactInfo, setShowContactInfo] = useState(false);
 
   const entityOptions = [
     "Colombo Central",
@@ -60,15 +68,6 @@ export default function Checkout() {
     "Rajarata",
     "Ruhuna",
     "Wayamba",
-    "Saegis",
-    "SLTC",
-    "Vavuniya",
-    "KDU",
-    "IIT",
-    "Jaffna",
-    "Horizon Campus",
-    "EUSL",
-    "Other"
   ];
 
   // Redirect if cart is empty
@@ -82,7 +81,7 @@ export default function Checkout() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/squid-game-bg.mp4" type="video/mp4" />
+          <source src="/squid-game-bg.webm" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -91,10 +90,14 @@ export default function Checkout() {
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[60vh]">
           <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 text-center">
             <div className="text-6xl mb-6">🛒</div>
-            <h2 className="text-2xl font-semibold text-white mb-4">Your cart is empty</h2>
-            <p className="text-gray-300 mb-8">Add some items to your cart before checking out.</p>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Your cart is empty
+            </h2>
+            <p className="text-gray-300 mb-8">
+              Add some items to your cart before checking out.
+            </p>
             <button
-              onClick={() => router.push('/store')}
+              onClick={() => router.push("/store")}
               className="bg-squid-teal hover:bg-squid-teal/80 text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
             >
               Continue Shopping
@@ -105,41 +108,52 @@ export default function Checkout() {
     );
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value, type } = e.target;
-    
+
     if (type === "checkbox") {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
+      setFormData((prev) => ({ ...prev, [name]: checked }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    
+
     // Validate file size (10MB limit)
     if (file && file.size > 10 * 1024 * 1024) {
       setErrorMessage("File size must be less than 10MB");
       return;
     }
-    
+
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
     if (file && !allowedTypes.includes(file.type)) {
       setErrorMessage("Please upload a valid file (JPG, PNG, PDF, DOC, DOCX)");
       return;
     }
-    
-    setFormData(prev => ({ ...prev, proofOfPurchase: file }));
+
+    setFormData((prev) => ({ ...prev, proofOfPurchase: file }));
     setErrorMessage(""); // Clear any previous errors
   };
 
   const sendCustomerConfirmation = async () => {
     try {
       // Prepare cart items data with merch pack details
-      const cartItemsForEmail = cartItems.map(item => ({
+      const cartItemsForEmail = cartItems.map((item) => ({
         id: item.id,
         name: item.name,
         price: item.price,
@@ -149,7 +163,7 @@ export default function Checkout() {
         isMerchPack: item.isMerchPack || false,
         tshirtSize: item.tshirtSize,
         wristbandColor: item.wristbandColor,
-        merchPackId: item.merchPackId
+        merchPackId: item.merchPackId,
       }));
 
       const customerData = {
@@ -162,19 +176,19 @@ export default function Checkout() {
         cartItems: cartItemsForEmail,
         totalItems: getTotalItems(),
         totalAmount: getTotalPrice(),
-        orderDate: new Date().toISOString()
+        orderDate: new Date().toISOString(),
       };
 
       const response = await fetch("/api/send-customer-confirmation", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(customerData)
+        body: JSON.stringify(customerData),
       });
 
       const result = await response.json();
-      
+
       if (!result.success) {
         console.error("Failed to send customer confirmation:", result.message);
         // Don't fail the entire order if email fails
@@ -193,7 +207,7 @@ export default function Checkout() {
 
     try {
       const submitData = new FormData();
-      
+
       // Form fields
       submitData.append("name", formData.name);
       submitData.append("email", formData.email);
@@ -201,39 +215,47 @@ export default function Checkout() {
       submitData.append("homeAddress", formData.homeAddress);
       submitData.append("entity", formData.entity);
       submitData.append("attendingEvent", formData.attendingEvent.toString());
-      
+
       // Enhanced cart summary with merch pack details
-      const cartSummary = cartItems.map(item => {
-        let itemDetails = item.name;
-        
-        if (item.isMerchPack) {
-          const specs = [];
-          if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
-          if (item.wristbandColor) specs.push(`Wristband: ${item.wristbandColor}`);
-          if (specs.length > 0) itemDetails += ` (${specs.join(', ')})`;
-          itemDetails += ' [MERCH PACK]';
-        } else {
-          if (item.size) itemDetails += ` (Size: ${item.size})`;
-          if (item.color) itemDetails += ` (Color: ${item.color})`;
-        }
-        
-        return `${itemDetails} - Qty: ${item.quantity} - ${item.price.toLocaleString()} LKR each`;
-      }).join('\n');
-      
+      const cartSummary = cartItems
+        .map((item) => {
+          let itemDetails = item.name;
+
+          if (item.isMerchPack) {
+            const specs = [];
+            if (item.tshirtSize) specs.push(`T-shirt: ${item.tshirtSize}`);
+            if (item.wristbandColor)
+              specs.push(`Wristband: ${item.wristbandColor}`);
+            if (specs.length > 0) itemDetails += ` (${specs.join(", ")})`;
+            itemDetails += " [MERCH PACK]";
+          } else {
+            if (item.size) itemDetails += ` (Size: ${item.size})`;
+            if (item.color) itemDetails += ` (Color: ${item.color})`;
+          }
+
+          return `${itemDetails} - Qty: ${
+            item.quantity
+          } - ${item.price.toLocaleString()} LKR each`;
+        })
+        .join("\n");
+
       submitData.append("cartItems", cartSummary);
       submitData.append("totalItems", getTotalItems().toString());
-      submitData.append("totalAmount", `${getTotalPrice().toLocaleString()} LKR`);
-      
+      submitData.append(
+        "totalAmount",
+        `${getTotalPrice().toLocaleString()} LKR`
+      );
+
       // Check if order contains merch packs
-      const hasMerchPack = cartItems.some(item => item.isMerchPack);
+      const hasMerchPack = cartItems.some((item) => item.isMerchPack);
       submitData.append("hasMerchPack", hasMerchPack.toString());
-      
+
       // Add detailed cart items as JSON for backend processing
       submitData.append("cartItemsJson", JSON.stringify(cartItems));
-      
+
       // Order timestamp
       submitData.append("orderDate", new Date().toISOString());
-      
+
       // Add proof of purchase file
       if (formData.proofOfPurchase) {
         submitData.append("proofOfPurchase", formData.proofOfPurchase);
@@ -242,7 +264,7 @@ export default function Checkout() {
       // Send to your existing API route (for admin notification)
       const response = await fetch("/api/checkout", {
         method: "POST",
-        body: submitData
+        body: submitData,
       });
 
       const result = await response.json();
@@ -250,7 +272,7 @@ export default function Checkout() {
       if (result.success) {
         // Send customer confirmation email
         await sendCustomerConfirmation();
-        
+
         setSubmitStatus("success");
         // Clear the cart after successful submission
         setTimeout(() => {
@@ -259,11 +281,15 @@ export default function Checkout() {
         }, 3000);
       } else {
         setSubmitStatus("error");
-        setErrorMessage(result.message || "Something went wrong. Please try again.");
+        setErrorMessage(
+          result.message || "Something went wrong. Please try again."
+        );
       }
     } catch (error) {
       setSubmitStatus("error");
-      setErrorMessage("Network error. Please check your connection and try again.");
+      setErrorMessage(
+        "Network error. Please check your connection and try again."
+      );
       console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
@@ -277,13 +303,17 @@ export default function Checkout() {
         <div>
           <h4 className="text-white font-medium">{item.name}</h4>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-squid-teal text-white text-xs px-2 py-1 rounded-full font-bold">PACK</span>
+            <span className="bg-squid-teal text-white text-xs px-2 py-1 rounded-full font-bold">
+              PACK
+            </span>
           </div>
           {item.tshirtSize && (
             <p className="text-gray-400 text-sm">T-shirt: {item.tshirtSize}</p>
           )}
           {item.wristbandColor && (
-            <p className="text-gray-400 text-sm">Wristband: {item.wristbandColor}</p>
+            <p className="text-gray-400 text-sm">
+              Wristband: {item.wristbandColor}
+            </p>
           )}
           <p className="text-gray-300">Qty: {item.quantity}</p>
         </div>
@@ -314,7 +344,7 @@ export default function Checkout() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/squid-game-bg.mp4" type="video/mp4" />
+          <source src="/squid-game-bg.webm" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -323,12 +353,16 @@ export default function Checkout() {
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[60vh]">
           <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 text-center">
             <div className="text-6xl mb-6">✅</div>
-            <h2 className="text-3xl font-semibold text-white mb-4">Order Submitted Successfully!</h2>
+            <h2 className="text-3xl font-semibold text-white mb-4">
+              Order Submitted Successfully!
+            </h2>
             <p className="text-gray-300 mb-4">
-              Thank you for your purchase! We have received your order and proof of purchase.
+              Thank you for your purchase! We have received your order and proof
+              of purchase.
             </p>
             <p className="text-gray-400 text-sm mb-8">
-              You&apos;ll receive a confirmation email shortly. Redirecting to confirmation page...
+              You&apos;ll receive a confirmation email shortly. Redirecting to
+              confirmation page...
             </p>
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-squid-teal mx-auto"></div>
           </div>
@@ -346,7 +380,7 @@ export default function Checkout() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/squid-game-bg.mp4" type="video/mp4" />
+        <source src="/squid-game-bg.webm" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -358,21 +392,24 @@ export default function Checkout() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             Checkout
           </h1>
-          <p className="text-gray-300 text-lg">
-            Complete your order
-          </p>
+          <p className="text-gray-300 text-lg">Complete your order</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Order Summary */}
           <div className="order-2 lg:order-1">
             <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-6">Order Summary</h3>
-              
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Order Summary
+              </h3>
+
               {/* Cart Items */}
               <div className="space-y-4 mb-6">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4 p-4 bg-white/5 rounded-xl">
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-4 p-4 bg-white/5 rounded-xl"
+                  >
                     <div className="relative w-16 h-16 bg-white/10 rounded-lg overflow-hidden flex-shrink-0">
                       <Image
                         src={item.image}
@@ -404,10 +441,10 @@ export default function Checkout() {
                   <span>Subtotal ({getTotalItems()} items)</span>
                   <span>{getTotalPrice().toLocaleString()} LKR</span>
                 </div>
-                <div className="flex justify-between text-gray-300">
+                {/* <div className="flex justify-between text-gray-300">
                   <span>Shipping</span>
                   <span>Free</span>
-                </div>
+                </div> */}
                 <div className="flex justify-between text-white text-xl font-bold pt-2 border-t border-white/20">
                   <span>Total</span>
                   <span>{getTotalPrice().toLocaleString()} LKR</span>
@@ -419,12 +456,17 @@ export default function Checkout() {
           {/* Checkout Form */}
           <div className="order-1 lg:order-2">
             <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-6">Customer Information</h3>
-              
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Customer Information
+              </h3>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Full Name *
                   </label>
                   <input
@@ -441,7 +483,10 @@ export default function Checkout() {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Email Address *
                   </label>
                   <input
@@ -458,7 +503,10 @@ export default function Checkout() {
 
                 {/* Contact Number */}
                 <div>
-                  <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="contactNumber"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Contact Number *
                   </label>
                   <input
@@ -475,7 +523,10 @@ export default function Checkout() {
 
                 {/* Home Address */}
                 <div>
-                  <label htmlFor="homeAddress" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="homeAddress"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Home Address *
                   </label>
                   <textarea
@@ -492,7 +543,10 @@ export default function Checkout() {
 
                 {/* Entity */}
                 <div>
-                  <label htmlFor="entity" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="entity"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Entity *
                   </label>
                   <select
@@ -503,9 +557,15 @@ export default function Checkout() {
                     required
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-squid-teal focus:border-transparent"
                   >
-                    <option value="" className="bg-gray-800">Select your entity</option>
+                    <option value="" className="bg-gray-800">
+                      Select your entity
+                    </option>
                     {entityOptions.map((option) => (
-                      <option key={option} value={option} className="bg-gray-800">
+                      <option
+                        key={option}
+                        value={option}
+                        className="bg-gray-800"
+                      >
                         {option}
                       </option>
                     ))}
@@ -522,14 +582,45 @@ export default function Checkout() {
                     onChange={handleInputChange}
                     className="mt-1 w-4 h-4 text-squid-teal bg-white/10 border-white/20 rounded focus:ring-squid-teal focus:ring-2"
                   />
-                  <label htmlFor="attendingEvent" className="text-sm text-gray-300">
+                  <label
+                    htmlFor="attendingEvent"
+                    className="text-sm text-gray-300"
+                  >
                     I will be attending NLDS 2025
                   </label>
                 </div>
 
+                {/* Bank Details */}
+                <div className="bg-white/5 border border-white/20 rounded-xl p-4">
+                  <h4 className="text-white font-semibold mb-3">
+                    Bank Account Details
+                  </h4>
+                  <ul className="space-y-1 text-gray-300 text-sm">
+                    <li>
+                      <strong>Account Number:</strong> 013020424602
+                    </li>
+                    <li>
+                      <strong>Account Name:</strong> K.G.T.Tharuka
+                    </li>
+                    <li>
+                      <strong>Bank:</strong> HNB
+                    </li>
+                    <li>
+                      <strong>Branch:</strong> Galle
+                    </li>
+                  </ul>
+                  <p className="text-xs text-gray-400 mt-2">
+                    💡 Please transfer the amount to the above account and
+                    upload your proof of purchase below.
+                  </p>
+                </div>
+
                 {/* Proof of Purchase File Upload */}
                 <div>
-                  <label htmlFor="proofOfPurchase" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="proofOfPurchase"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Proof of Purchase *
                   </label>
                   <input
@@ -559,7 +650,10 @@ export default function Checkout() {
                 {/* Error Message */}
                 {(submitStatus === "error" || errorMessage) && (
                   <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-4">
-                    <p className="text-red-300 text-sm">{errorMessage || "Something went wrong. Please try again."}</p>
+                    <p className="text-red-300 text-sm">
+                      {errorMessage ||
+                        "Something went wrong. Please try again."}
+                    </p>
                   </div>
                 )}
 
@@ -581,11 +675,35 @@ export default function Checkout() {
 
                 <button
                   type="button"
-                  onClick={() => router.push('/cart')}
+                  onClick={() => router.push("/cart")}
                   className="w-full bg-transparent border-2 border-squid-teal text-squid-teal hover:bg-squid-teal hover:text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
                 >
                   Back to Cart
                 </button>
+
+                {/* Support Email */}
+                <div className="mt-4 text-center text-gray-400 text-sm">
+                  <p className="mb-2">
+                    In case you encounter an error, immediately send an email to{" "}
+                    <a href="mailto:bimsara.madurapperum@aiesec.net" className="text-squid-teal hover:underline">
+                      bimsara.madurapperum@aiesec.net 
+                    </a>
+                    <br></br>
+                    or send a message via WhatsApp
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowContactInfo(!showContactInfo)}
+                    className="text-squid-teal hover:text-squid-teal/80 underline transition-colors duration-200"
+                  >
+                    {showContactInfo ? "Hide WhatsApp contact" : "click to view WhatsApp contact"}
+                  </button>
+                  {showContactInfo && (
+                    <p className="mt-2 text-gray-300">
+                      WhatsApp: +94767329685
+                    </p>
+                  )}
+                </div>
               </form>
             </div>
           </div>

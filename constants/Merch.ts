@@ -11,55 +11,50 @@ export interface MerchItem {
 export const MERCH_ITEMS: MerchItem[] = [
   {
     name: "Crew Neck Tee",
-    price: "1800",
-    images: ["/merch/crew-neck-tee.png", "/merch/crew-neck-tee-front.png", "/merch/crew-neck-tee-back.png"],
+    price: "1600",
+    images: ["/merch/crew-neck-tee.webp", "/merch/crew-neck-tee-front.webp", "/merch/crew-neck-tee-back.webp"],
     type: "tshirt",
     sizes: ["XS", "S", "M", "L", "XL", "XXL"]
   },
   {
     name: "Oversized Tee",
-    price: "1600",
-    images: ["/merch/oversized-tee.png" , "/merch/oversized-tee-front.png", "/merch/oversized-tee-back.png"],
+    price: "1800",
+    images: ["/merch/oversized-tee.webp" , "/merch/oversized-tee-front.webp", "/merch/oversized-tee-back.webp"],
     type: "tshirt",
     sizes: ["XS", "S", "M", "L", "XL", "XXL"]
   },
   {
     name: "Black Wristband",
     price: "300",
-    images: ["/merch/wrist-band-black.png"],
+    images: ["/merch/wrist-band-black.webp"],
     type: "accessory"
   },
   {
     name: "White Wristband",
-    price: "250",
-    images: ["/merch/wrist-band-white.png"],
+    price: "300",
+    images: ["/merch/wrist-band-white.webp"],
     type: "accessory"
   }, 
   {
-    name: "Bucket Hat",
-    price: "250",
-    images: ["/merch/bucket-hat.png"],
+    name: "Bucket Hat (double side)",
+    price: "1250",
+    images: ["/merch/bucket-hat.webp"],
     type: "accessory"
   },
   {
     name: "Water Bottle",
     price: "250",
-    images: ["/merch/water-bottle.png"],
-    type: "accessory"
-  },
-  {
-    name: "Sticker Pack",
-    price: "250",
-    images: ["/merch/sticker-pack.png"],
+    images: ["/merch/water-bottle.webp"],
     type: "accessory"
   },
   {
     name: "Merch Pack",
-    price: "5000",
-    images: ["/merch/merch-pack.png"],
+    price: "2100",
+    images: ["/merch/merch-pack.webp"],
     type: "pack",
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: ["Black", "White"],
-    description: "Includes: Crew Neck Tee, Wristband, Sticker Pack + Secret Item"
+    description: "Includes: Crew Neck Tee x 1, Wristband x 1, Sticker Pack x 1 + Secret Item"
   }
 ];
+

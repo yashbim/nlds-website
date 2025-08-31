@@ -8,13 +8,13 @@ import { useCart } from "@/contexts/CartContext";
 export default function Cart() {
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const router = useRouter();
-  const { 
-    items: cartItems, 
-    isLoading, 
-    updateQuantity, 
-    removeFromCart, 
-    getTotalPrice, 
-    getTotalItems 
+  const {
+    items: cartItems,
+    isLoading,
+    updateQuantity,
+    removeFromCart,
+    getTotalPrice,
+    getTotalItems,
   } = useCart();
 
   const showPopup = (message: string) => {
@@ -33,13 +33,13 @@ export default function Cart() {
   };
 
   const handleContinueShopping = () => {
-    router.push('/store');
+    router.push("/store");
   };
 
   const handleCheckout = () => {
     showPopup("Proceeding to checkout...");
     setTimeout(() => {
-      router.push('/checkout');
+      router.push("/checkout");
     }, 1000);
   };
 
@@ -53,12 +53,12 @@ export default function Cart() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/squid-game-bg.mp4" type="video/mp4" />
+          <source src="/squid-game-bg.webm" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        
+
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-        
+
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-squid-teal mx-auto mb-4"></div>
@@ -78,7 +78,7 @@ export default function Cart() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/squid-game-bg.mp4" type="video/mp4" />
+        <source src="/squid-game-bg.webm" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -90,7 +90,8 @@ export default function Cart() {
             Shopping Cart
           </h1>
           <p className="text-gray-300 text-lg pt-7">
-            {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'} in your cart
+            {getTotalItems()} {getTotalItems() === 1 ? "item" : "items"} in your
+            cart
           </p>
         </div>
 
@@ -98,8 +99,12 @@ export default function Cart() {
           <div className="text-center py-16">
             <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-12 max-w-md mx-auto">
               <div className="text-6xl mb-6">🛒</div>
-              <h2 className="text-2xl font-semibold text-white mb-4">Your cart is empty</h2>
-              <p className="text-gray-300 mb-8">Add some amazing NLDS drip to get started!</p>
+              <h2 className="text-2xl font-semibold text-white mb-4">
+                Your cart is empty
+              </h2>
+              <p className="text-gray-300 mb-8">
+                Add some amazing NLDS drip to get started!
+              </p>
               <button
                 onClick={handleContinueShopping}
                 className="bg-squid-teal hover:bg-squid-teal/80 text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
@@ -123,15 +128,20 @@ export default function Cart() {
 
             <div className="lg:col-span-1">
               <div className="bg-black/70 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sticky top-8">
-                <h3 className="text-xl font-semibold text-white mb-6">Order Summary</h3>
-                
+                <h3 className="text-xl font-semibold text-white mb-6">
+                  Order Summary
+                </h3>
+
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-gray-300">
                     <span>Subtotal ({getTotalItems()} items)</span>
                     <span>{getTotalPrice().toLocaleString()} LKR</span>
                   </div>
                   <div className="flex justify-between text-gray-300 text-sm">
-                    <span>Can be collected on the event day or will be handed over to your entity</span>
+                    <span>
+                      Can be collected on the event day or will be handed over
+                      to your entity
+                    </span>
                   </div>
                   <div className="border-t border-white/20 pt-3">
                     <div className="flex justify-between text-white text-lg font-semibold">
@@ -148,7 +158,7 @@ export default function Cart() {
                   >
                     Proceed to Checkout
                   </button>
-                  
+
                   <button
                     onClick={handleContinueShopping}
                     className="w-full bg-transparent border-2 border-squid-teal text-squid-teal hover:bg-squid-teal hover:text-white py-3 px-6 rounded-xl transition-all duration-300 font-medium"
@@ -208,10 +218,14 @@ function CartItemCard({
       return (
         <div className="space-y-1">
           {item.tshirtSize && (
-            <p className="text-gray-400 text-sm">T-shirt Size: {item.tshirtSize}</p>
+            <p className="text-gray-400 text-sm">
+              T-shirt Size: {item.tshirtSize}
+            </p>
           )}
           {item.wristbandColor && (
-            <p className="text-gray-400 text-sm">Wristband Color: {item.wristbandColor}</p>
+            <p className="text-gray-400 text-sm">
+              Wristband Color: {item.wristbandColor}
+            </p>
           )}
           <p className="text-squid-teal text-xs font-medium">🎁 Merch Pack</p>
         </div>
@@ -252,7 +266,9 @@ function CartItemCard({
         <div className="flex-grow">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
             <div>
-              <h3 className="text-lg font-semibold text-white mb-1">{item.name}</h3>
+              <h3 className="text-lg font-semibold text-white mb-1">
+                {item.name}
+              </h3>
               {renderItemSpecs()}
               <p className="text-squid-teal font-semibold text-lg mt-2">
                 {item.price.toLocaleString()} LKR

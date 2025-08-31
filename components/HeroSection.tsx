@@ -56,9 +56,12 @@ export default function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover object-center"
         >
+          <source src="/squid-game-bg.webm" type="video/webm" />
           <source src="/squid-game-bg.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </div>
+
 
       {/* Animated Logo Centered */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
