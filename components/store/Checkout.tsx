@@ -685,8 +685,8 @@ export default function Checkout() {
                 <div className="mt-4 text-center text-gray-400 text-sm">
                   <p className="mb-2">
                     In case you encounter an error, immediately send an email to{" "}
-                    <a href="mailto:bimsara.madurapperum@aiesec.net" className="text-squid-teal hover:underline">
-                      bimsara.madurapperum@aiesec.net 
+                    <a href="mailto:bimsara.madurapperuma@aiesec.net" className="text-squid-teal hover:underline">
+                      bimsara.madurapperuma@aiesec.net 
                     </a>
                     <br></br>
                     or send a message via WhatsApp
