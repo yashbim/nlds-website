@@ -1,7 +1,7 @@
 // app/api/send-customer-confirmation/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { Client } from 'node-mailjet';
-import { supabaseAdmin } from '@/lib/supabase';
+import { db } from '@/lib/yugabyte';
 
 const mailjet = new Client({
   apiKey: process.env.MAILJET_API_KEY!,
@@ -76,7 +76,7 @@ async function saveMerchPackToDatabase(item: CartItem, customerData: CustomerDat
 
   try {
     console.log('Saving merch pack to database:', {
-      order_id: customerData.orderId, // Use the same order ID
+      order_id: customerData.orderId,
       customer: customerData.name,
       customer_entity: customerData.entity,
       order_date: customerData.orderDate,
@@ -84,26 +84,22 @@ async function saveMerchPackToDatabase(item: CartItem, customerData: CustomerDat
       wristband_color: item.wristbandColor
     });
 
-    const { data, error } = await supabaseAdmin
-      .from('merch_packs')
-      .insert({
-        order_id: customerData.orderId, // Add order ID reference
+    const result = await db
+      .insertInto('merch_packs')
+      .values({
+        order_id: customerData.orderId,
         customer: customerData.name,
         customer_entity: customerData.entity,
         order_date: customerData.orderDate,
         tshirt_size: item.tshirtSize || null,
         wristband_color: item.wristbandColor || null
-      });
+      })
+      .execute();
 
-    if (error) {
-      console.error('Merch pack database error:', error);
-      throw error;
-    }
-
-    console.log('Merch pack saved successfully:', data);
+    console.log('Merch pack saved successfully:', result);
   } catch (error) {
     console.error('Error saving merch pack:', error);
-    throw error; // Throw error to ensure we know if this fails
+    throw error;
   }
 }
 
@@ -116,9 +112,9 @@ async function saveOrderToDatabase(customerData: CustomerData) {
     console.log('Saving order to database...');
 
     // Insert order into orders table
-    const { data: orderData, error: orderError } = await supabaseAdmin
-      .from('orders')
-      .insert({
+    const orderResult = await db
+      .insertInto('orders')
+      .values({
         order_id: customerData.orderId,
         customer_name: customerData.name,
         customer_email: customerData.email,
@@ -133,17 +129,12 @@ async function saveOrderToDatabase(customerData: CustomerData) {
         has_merch_pack: hasMerchPack,
         email_sent: false
       })
-      .select('id')
-      .single();
+      .returning('id')
+      .executeTakeFirstOrThrow();
 
-    if (orderError) {
-      console.error('Error inserting order:', orderError);
-      throw orderError;
-    }
+    console.log('Order saved with ID:', orderResult.id);
 
-    console.log('Order saved with ID:', orderData.id);
-
-    // Insert order items into order_items table using the same order_id string
+    // Insert order items into order_items table
     const orderItems = customerData.cartItems.map(item => {
       console.log('Processing item for order_items:', {
         item_name: item.name,
@@ -153,7 +144,7 @@ async function saveOrderToDatabase(customerData: CustomerData) {
       });
 
       return {
-        order_id: customerData.orderId, // Use the same order ID string, not the database ID
+        order_id: customerData.orderId,
         item_id: item.id,
         item_name: item.name,
         item_size: item.size || null,
@@ -161,7 +152,6 @@ async function saveOrderToDatabase(customerData: CustomerData) {
         price: item.price,
         quantity: item.quantity,
         total_price: item.price * item.quantity,
-        // Merch pack specific fields
         is_merch_pack: item.isMerchPack || false,
         tshirt_size: item.tshirtSize || null,
         wristband_color: item.wristbandColor || null,
@@ -171,14 +161,10 @@ async function saveOrderToDatabase(customerData: CustomerData) {
 
     console.log('Inserting order items:', orderItems);
 
-    const { error: itemsError } = await supabaseAdmin
-      .from('order_items')
-      .insert(orderItems);
-
-    if (itemsError) {
-      console.error('Error inserting order items:', itemsError);
-      throw itemsError;
-    }
+    await db
+      .insertInto('order_items')
+      .values(orderItems)
+      .execute();
 
     console.log('Order items saved successfully');
 
@@ -190,7 +176,7 @@ async function saveOrderToDatabase(customerData: CustomerData) {
       }
     }
 
-    return orderData.id;
+    return orderResult.id;
   } catch (error) {
     console.error('Database save error:', error);
     throw error;
@@ -198,12 +184,13 @@ async function saveOrderToDatabase(customerData: CustomerData) {
 }
 
 async function updateEmailSentStatus(orderId: string, emailSent: boolean) {
-  const { error } = await supabaseAdmin
-    .from('orders')
-    .update({ email_sent: emailSent })
-    .eq('order_id', orderId);
-
-  if (error) {
+  try {
+    await db
+      .updateTable('orders')
+      .set({ email_sent: emailSent })
+      .where('order_id', '=', orderId)
+      .execute();
+  } catch (error) {
     console.error('Error updating email status:', error);
   }
 }

@@ -11,10 +11,13 @@
   "dependencies": {
     "@next/font": "^14.2.15",
     "@supabase/supabase-js": "^2.56.0",
+    "@types/pg": "^8.15.5",
     "framer-motion": "^12.23.12",
+    "kysely": "^0.28.5",
     "lottie-react": "^2.4.1",
     "next": "15.4.6",
     "node-mailjet": "^6.0.9",
+    "pg": "^8.16.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.0.1"
