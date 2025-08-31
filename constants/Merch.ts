@@ -43,7 +43,7 @@ export const MERCH_ITEMS: MerchItem[] = [
   },
   {
     name: "Water Bottle",
-    price: "250",
+    price: "950",
     images: ["/merch/water-bottle.webp"],
     type: "accessory"
   },
