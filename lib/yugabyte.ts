@@ -20,7 +20,7 @@ const pool = new Pool({
 // Type definitions for your database schema
 interface Database {
   orders: {
-    id: number;
+    id: string | undefined; // Make id optional for insert operations
     order_id: string;
     customer_name: string;
     customer_email: string;
@@ -38,7 +38,7 @@ interface Database {
     updated_at: Date;
   };
   order_items: {
-    id: number;
+    id: string | undefined; // Make id optional for insert operations
     order_id: string;
     item_id: string;
     item_name: string;
@@ -54,14 +54,13 @@ interface Database {
     created_at: Date;
   };
   merch_packs: {
-    id: number;
-    order_id: string;
+    id: number | undefined; // SERIAL PRIMARY KEY, auto-increments
     customer: string;
     customer_entity: string;
     order_date: string;
     tshirt_size: string | null;
     wristband_color: string | null;
-    created_at: Date;
+    created_at: Date | undefined; // Has default value
   };
 }
 

@@ -161,9 +161,9 @@ export default function Checkout() {
         size: item.size,
         color: item.color,
         isMerchPack: item.isMerchPack || false,
-        tshirtSize: item.tshirtSize,
-        wristbandColor: item.wristbandColor,
-        merchPackId: item.merchPackId,
+        tshirtSize: item.isMerchPack ? item.tshirtSize : undefined,
+        wristbandColor: item.isMerchPack ? item.wristbandColor : undefined,
+        merchPackId: item.isMerchPack ? item.merchPackId : undefined,
       }));
 
       const customerData = {

@@ -49,7 +49,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         const newItem: CartItem = {
           ...action.payload,
           id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-        };
+        } as CartItem;
         return { ...state, items: [...state.items, newItem] };
       }
     }

@@ -29,7 +29,7 @@ interface CustomerData {
 }
 
 export class OrderService {
-  static async saveOrder(customerData: CustomerData): Promise<number> {
+  static async saveOrder(customerData: CustomerData): Promise<string> {
     try {
       const orderItemsSummary = this.generateOrderItemsSummary(customerData.cartItems);
       const hasMerchPack = customerData.cartItems.some(item => item.isMerchPack);
@@ -50,7 +50,9 @@ export class OrderService {
           order_date: customerData.orderDate,
           order_items_summary: orderItemsSummary,
           has_merch_pack: hasMerchPack,
-          email_sent: false
+          email_sent: false,
+          created_at: new Date(),
+          updated_at: new Date()
         })
         .returning('id')
         .executeTakeFirstOrThrow();
@@ -61,6 +63,9 @@ export class OrderService {
       // Save merch packs
       await this.saveMerchPacks(customerData);
 
+      if (!orderResult.id) {
+        throw new Error('Failed to get order ID from database');
+      }
       return orderResult.id;
     } catch (error) {
       console.error('Error saving order:', error);
@@ -81,7 +86,8 @@ export class OrderService {
       is_merch_pack: item.isMerchPack || false,
       tshirt_size: item.tshirtSize || null,
       wristband_color: item.wristbandColor || null,
-      merch_pack_id: item.merchPackId || null
+      merch_pack_id: item.merchPackId || null,
+      created_at: new Date()
     }));
 
     await db
