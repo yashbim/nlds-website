@@ -6,8 +6,76 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { MERCH_ITEMS, MerchItem } from "@/constants/Merch";
 
+// Size Chart Modal Component
+function SizeChartModal({
+  isOpen,
+  onClose,
+  productType,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  productType: string;
+}) {
+  if (!isOpen) return null;
+
+  const sizeCharts = {
+    tshirt: {
+        title: "Crew Neck Tee Size Chart",
+      image: "/merch/crewneck-size-chart.webp", // Replace with your actual image path
+    },
+    oversized: {
+      title: "Oversized Tee Size Chart", 
+      image: "/merch/oversized-size-chart.webp", // Replace with your oversized tee image path
+    },
+    pack: {
+      title: "Crew Neck Tee Size Chart",
+      image: "/merch/crewneck-size-chart.webp", // Replace with your actual image path
+    },
+  };
+
+  const chart = sizeCharts[productType as keyof typeof sizeCharts] || sizeCharts.tshirt;
+
+  return (
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-squid-dark border-2 border-squid-teal rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-2xl font-bold text-white">{chart.title}</h3>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-colors duration-200 text-white text-xl"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Size Chart Image */}
+        <div className="flex justify-center mb-6">
+          <div className="relative w-full max-w-lg aspect-square">
+            <Image
+              src={chart.image}
+              alt={chart.title}
+              fill
+              className="object-contain rounded-xl"
+            />
+          </div>
+        </div>
+
+        {/* Optional measurement guide - you can remove this if not needed */}
+        <div className="p-4 bg-white/5 rounded-xl text-center">
+          <p className="text-sm text-gray-300">
+            All measurements are in inches. For best fit, measure yourself and compare with the chart above.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Store() {
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
+  const [sizeChartOpen, setSizeChartOpen] = useState(false);
+  const [sizeChartType, setSizeChartType] = useState<string>("tshirt");
   const router = useRouter();
   const { addToCart } = useCart();
 
@@ -53,6 +121,15 @@ export default function Store() {
 
   const handleViewCart = () => {
     router.push("/cart");
+  };
+
+  const openSizeChart = (productType: string) => {
+    setSizeChartType(productType);
+    setSizeChartOpen(true);
+  };
+
+  const closeSizeChart = () => {
+    setSizeChartOpen(false);
   };
 
   // Separate items by type
@@ -104,6 +181,7 @@ export default function Store() {
                 <MerchPackCard
                   product={merchPack}
                   onAddToCart={handleAddToCart}
+                  onOpenSizeChart={() => openSizeChart("pack")}
                 />
               </div>
             </div>
@@ -125,6 +203,11 @@ export default function Store() {
                 key={index}
                 product={product}
                 onAddToCart={handleAddToCart}
+                onOpenSizeChart={() => {
+                  // Check if it's an oversized tee by name or add a property to your MERCH_ITEMS
+                  const isOversized = product.name.toLowerCase().includes('oversized');
+                  openSizeChart(isOversized ? "oversized" : "tshirt");
+                }}
               />
             ))}
           </div>
@@ -161,6 +244,13 @@ export default function Store() {
         </div>
       </div>
 
+      {/* Size Chart Modal */}
+      <SizeChartModal
+        isOpen={sizeChartOpen}
+        onClose={closeSizeChart}
+        productType={sizeChartType}
+      />
+
       {/* Popup Message */}
       {popupMessage && (
         <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-squid-dark border-2 border-squid-teal text-white py-3 px-6 rounded-xl shadow-xl text-center z-50 animate-fade-in-out opacity-80">
@@ -174,6 +264,7 @@ export default function Store() {
 function MerchPackCard({
   product,
   onAddToCart,
+  onOpenSizeChart,
 }: {
   product: MerchItem;
   onAddToCart: (
@@ -183,6 +274,7 @@ function MerchPackCard({
     product: MerchItem,
     color?: string
   ) => void;
+  onOpenSizeChart: () => void;
 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[2] || "");
@@ -237,9 +329,6 @@ function MerchPackCard({
 
   return (
     <div className="bg-gradient-to-br from-squid-dark to-black backdrop-blur-lg border-2 border-squid-teal rounded-3xl overflow-hidden shadow-2xl hover:shadow-pink-500/20 transition-all duration-300 group flex flex-col lg:flex-row">
-      {" "}
-      {/* Image container */}
-      {/* </div><div className="bg-gradient-to-br from-pink-900/30 to-purple-900/30 backdrop-blur-lg border-2 border-squid-teal rounded-3xl overflow-hidden shadow-2xl hover:shadow-pink-500/20 transition-all duration-300 group flex flex-col lg:flex-row"> */}
       {/* Image container */}
       <div
         className="relative w-full lg:w-1/2 aspect-square lg:aspect-auto bg-white/5 p-6 flex items-center justify-center"
@@ -274,12 +363,8 @@ function MerchPackCard({
             <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-t-transparent border-b-transparent border-l-white"></div>
           </button>
         )}
-
-        {/* Featured Badge */}
-        {/* <div className="absolute top-4 right-4 bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          BEST VALUE
-        </div> */}
       </div>
+
       {/* Content section */}
       <div className="p-6 text-center space-y-6 flex flex-col justify-center w-full lg:w-1/2">
         <div>
@@ -288,15 +373,22 @@ function MerchPackCard({
             <p className="text-gray-300 text-sm mb-3">{product.description}</p>
           )}
           <p className="text-white text-3xl font-bold">{displayPrice} LKR</p>
-          {/* <p className="text-green-400 text-sm">Save 550 LKR compared to buying separately!</p> */}
         </div>
 
         {/* T-Shirt Size Selector */}
         {product.sizes && (
           <div className="space-y-3">
-            <label className="text-sm text-gray-300 block font-medium">
-              T-Shirt Size:
-            </label>
+            <div className="flex items-center justify-center gap-2">
+              <label className="text-sm text-gray-300 block font-medium">
+                T-Shirt Size:
+              </label>
+              <button
+                onClick={onOpenSizeChart}
+                className="text-xs text-squid-teal hover:text-squid-teal/80 underline transition-colors duration-200"
+              >
+                View Size Chart
+              </button>
+            </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {product.sizes.map((size) => (
                 <button
@@ -339,29 +431,6 @@ function MerchPackCard({
           </div>
         )}
 
-        {/* Quantity Selector */}
-        {/* <div className="space-y-3">
-          <label className="text-sm text-gray-300 block font-medium">Quantity:</label>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              onClick={() => handleQuantityChange(false)}
-              disabled={quantity <= 1}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white flex items-center justify-center transition-colors duration-200 text-lg font-bold"
-            >
-              -
-            </button>
-            <span className="text-white font-bold text-xl min-w-[3rem] text-center">
-              {quantity}
-            </span>
-            <button
-              onClick={() => handleQuantityChange(true)}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors duration-200 text-lg font-bold"
-            >
-              +
-            </button>
-          </div>
-        </div> */}
-
         <button
           onClick={() =>
             onAddToCart(
@@ -384,6 +453,7 @@ function MerchPackCard({
 function ProductCard({
   product,
   onAddToCart,
+  onOpenSizeChart,
 }: {
   product: MerchItem;
   onAddToCart: (
@@ -392,6 +462,7 @@ function ProductCard({
     quantity: number,
     product: MerchItem
   ) => void;
+  onOpenSizeChart?: () => void;
 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[2] || "");
@@ -493,7 +564,17 @@ function ProductCard({
         {/* Size Selector */}
         {product.type === "tshirt" && product.sizes && (
           <div className="space-y-2">
-            <label className="text-sm text-gray-300 block">Size:</label>
+            <div className="flex items-center justify-center gap-2">
+              <label className="text-sm text-gray-300 block">Size:</label>
+              {onOpenSizeChart && (
+                <button
+                  onClick={onOpenSizeChart}
+                  className="text-xs text-squid-teal hover:text-squid-teal/80 underline transition-colors duration-200"
+                >
+                  View Size Chart
+                </button>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {product.sizes.map((size) => (
                 <button

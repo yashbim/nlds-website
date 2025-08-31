@@ -93,20 +93,39 @@ export default function OrderConfirmation() {
               </div>
             </div>
 
-            {/* Contact Info */}
-            <div className="bg-white/5 rounded-xl p-6 mb-8">
-              <h3 className="text-lg font-semibold text-white mb-3">
+            <div className="bg-gradient-to-r from-squid-teal/10 to-squid-teal/5 rounded-2xl p-6 mb-8 shadow-lg">
+              <h3 className="text-xl font-bold text-white mb-4">
                 Questions about your order?
               </h3>
-              <p className="text-gray-300 mb-3">
-                Contact the OC if you need any assistance.
+              <p className="text-gray-300 mb-5">
+                Our Organizing Committee is here to help. Reach out to us:
               </p>
-              <div className="text-squid-teal font-medium">
-                📧 bimsara.madurapperuma@aiesec.net
-                <br />
-                📱 +94 76 732 96 85
+
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <span className="text-squid-teal text-lg"></span>
+                  <div>
+                    <p className="text-squid-teal noticia-text-regular">
+                      <a href="mailto:nivedhitha@aiesec.net" className="text-squid-teal font-semibold hover:underline"> 📧 nivedhitha@aiesec.net</a>
+                      <span className="text-squid-orange font-semibold"> (+94 74 293 6786)</span>
+                    </p>
+                    <p className="text-gray-400 text-sm"></p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-3">
+                  <span className="text-squid-teal text-lg"></span>
+                  <div>
+                    <p className="text-squid-teal noticia-text-regular">
+                      <a href="mailto:mihisarajayathilaka@aiesec.net" className="text-squid-teal font-semibold hover:underline"> 📧 mihisarajayathilaka@aiesec.net</a>
+                      <span className="text-squid-orange font-semibold"> (+94 70 717 7132)</span>
+                    </p>
+                    <p className="text-gray-400 text-sm"></p>
+                  </div>
+                </div>
               </div>
             </div>
+
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
