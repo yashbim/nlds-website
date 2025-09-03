@@ -136,7 +136,7 @@ export default function Store() {
   };
 
   // Separate items by type
-  const merchPack = MERCH_ITEMS.find((item) => item.type === "pack");
+  const merchPacks = MERCH_ITEMS.filter((item) => item.type === "pack");
   const tshirts = MERCH_ITEMS.filter((item) => item.type === "tshirt");
   const accessories = MERCH_ITEMS.filter((item) => item.type === "accessory");
 
@@ -170,23 +170,27 @@ export default function Store() {
           />
         </div>
 
-        {/* Merch Pack Section */}
-        {merchPack && (
+        {/* Merch Packs Section */}
+        {merchPacks.length > 0 && (
           <div className="mb-16">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Merch Pack</h2>
+              <h2 className="text-3xl font-bold text-white mb-2">Merch Packs</h2>
               <p className="text-gray-300">
-                Enter the game with our ultimate survival bundle!
+                Enter the game with our ultimate survival bundles!
               </p>
             </div>
-            <div className="flex justify-center">
-              <div className="w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl">
-                <MerchPackCard
-                  product={merchPack}
-                  onAddToCart={handleAddToCart}
-                  onOpenSizeChart={() => openSizeChart("pack")}
-                />
-              </div>
+            <div className="space-y-8 max-w-7xl mx-auto">
+              {merchPacks.map((merchPack, index) => (
+                <div key={index} className="flex justify-center">
+                  <div className="w-full">
+                    <MerchPackCard
+                      product={merchPack}
+                      onAddToCart={handleAddToCart}
+                      onOpenSizeChart={() => openSizeChart("pack")}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

@@ -55,6 +55,15 @@ export const MERCH_ITEMS: MerchItem[] = [
     sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
     colors: ["Black", "White"],
     description: "Includes: Crew Neck Tee x 1, Wristband x 1, Sticker Pack x 1 + Secret Item"
+  },
+  {
+    name: "Merch pack - Oversized",
+    price: "2300",
+    images: ["/merch/merch-pack-oversized.webp"],
+    type: "pack",
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
+    colors: ["Black", "White"],
+    description: "Includes: Oversized Tee x 1, Wristband x 1, Sticker Pack x 1 + Secret Item"
   }
 ];
 
