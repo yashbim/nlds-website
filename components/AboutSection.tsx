@@ -151,6 +151,28 @@ export default function AboutEvent() {
           <h3 className="text-l font-semibold text-center">October 3rd - 5th</h3>
         </div>
       </div>
+
+      {/* Title */}
+      <div className="text-center mb-6 font-mono pt-5">
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide text-white">
+          Watch Location Reveal
+        </h2>
+      </div>
+
+      {/* 🎥 location reveal Section */}
+      <div className="max-w-4xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-lg">
+        <div className="aspect-video w-full rounded-2xl">
+          <iframe
+            className="w-full h-full rounded-2xl"
+            src="https://www.youtube.com/embed/CHTtsI7xGx8"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
     </section>
   );
 }

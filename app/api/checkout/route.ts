@@ -184,6 +184,7 @@ export async function POST(request: NextRequest) {
     const emailData: EmailData = {
       from: 'NLDS Merch <onboarding@resend.dev>', // Resend's default domain
       to: ['nldsmerch@gmail.com'], // Replace with your email
+      // to: ['bimsaramadurapperuma2003@gmail.com'],
       replyTo: email,
       subject: `NLDS 2025 Merch ${hasMerchPack ? '🎁 ' : ''}Order - ${name}`,
       html: emailHtml,

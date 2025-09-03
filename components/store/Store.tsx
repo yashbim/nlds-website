@@ -109,7 +109,6 @@ export default function Store() {
           : productDetails.images[0],
         size,
         quantity,
-        type: productDetails.type,
         color,
       });
 
