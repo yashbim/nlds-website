@@ -50,7 +50,7 @@ export default function AboutEvent() {
             height={64}
             className="pb-5 hover:scale-105 transition-all duration-300 ease-in-out"
           />
-          <h3 className="text-l font-semibold">10 Universities</h3>
+          <h3 className="text-l font-semibold">11 Universities</h3>
         </div>
         {/* Item 2 */}
         <div className="bg-gray-900 border-2 border-squid-teal hover:border-squid-pink hover:inset-shadow-sm hover:inset-shadow-squid-pink rounded-2xl p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ease-in-out">
@@ -127,7 +127,7 @@ export default function AboutEvent() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12 font-mono">
         {/* Item 1 - Location */}
         <a
-          // href="https://www.carolinabeachhotel.lk/"
+          href="https://www.carolinabeachhotel.lk/"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full"
@@ -138,7 +138,7 @@ export default function AboutEvent() {
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
             </div>
-            <h3 className="text-l font-semibold text-center">Await the Reveal!</h3>
+            <h3 className="text-l font-semibold text-center">Carolina Beach Resort and Spa</h3>
           </div>
         </a>
         {/* Item 2 - Date */}
