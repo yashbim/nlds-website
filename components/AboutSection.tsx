@@ -31,7 +31,7 @@ export default function AboutEvent() {
               National Leadership Development Seminar (NLDS){" "}
             </span>
             is one of the largest conferences organized by AIESEC in Sri Lanka,
-            bringing together over 250 delegates from more than 10 prestigious
+            bringing together over 250 delegates from more than 11 prestigious
             universities across the country. It serves as a platform for AIESECers
             from all over Sri Lanka to connect, expand their networks, and foster
             the development of the next generation of leaders.
