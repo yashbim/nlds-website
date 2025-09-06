@@ -2,7 +2,6 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -24,15 +23,20 @@ function SizeChartModal({
   const sizeCharts = {
     tshirt: {
         title: "Crew Neck Tee Size Chart",
-      image: "/merch/crewneck-size-chart.webp", // Replace with your actual image path
+      image: "/merch/crewneck-size-chart.webp",
     },
     oversized: {
       title: "Oversized Tee Size Chart", 
-      image: "/merch/oversized-size-chart.webp", // Replace with your oversized tee image path
+      image: "/merch/oversized-size-chart.webp",
     },
     pack: {
       title: "Crew Neck Tee Size Chart",
-      image: "/merch/crewneck-size-chart.webp", // Replace with your actual image path
+      image: "/merch/crewneck-size-chart.webp",
+    },
+    // Add specific pack types
+    packOversized: {
+      title: "Oversized Tee Size Chart",
+      image: "/merch/oversized-size-chart.webp",
     },
   };
 
@@ -64,7 +68,7 @@ function SizeChartModal({
           </div>
         </div>
 
-        {/* Optional measurement guide - you can remove this if not needed */}
+        {/* Optional measurement guide */}
         <div className="p-4 bg-white/5 rounded-xl text-center">
           <p className="text-sm text-gray-300">
             All measurements are in inches. For best fit, measure yourself and compare with the chart above.
@@ -89,13 +93,11 @@ export default function Store() {
     product: MerchItem,
     color?: string
   ) => {
-    // Find the product to get all details
     const productDetails = MERCH_ITEMS.find(
       (item) => item.name === productName
     );
 
     if (productDetails) {
-      // Convert price to number if it's a string
       const price =
         typeof productDetails.price === "string"
           ? parseFloat(productDetails.price.replace(/[^\d.-]/g, ""))
@@ -103,7 +105,7 @@ export default function Store() {
 
       addToCart({
         name: productName,
-        price: price, // Now guaranteed to be a number
+        price: price,
         image: Array.isArray(productDetails.images)
           ? productDetails.images[0]
           : productDetails.images[0],
@@ -132,6 +134,16 @@ export default function Store() {
 
   const closeSizeChart = () => {
     setSizeChartOpen(false);
+  };
+
+  // Helper function to determine size chart type for merch packs
+  const getSizeChartTypeForPack = (product: MerchItem): string => {
+    // Check if the product name contains "oversized" (case-insensitive)
+    if (product.name.toLowerCase().includes('oversized')) {
+      return 'packOversized';
+    }
+    // You can add more conditions here based on your product naming or add a sizeChartType property to MerchItem
+    return 'pack';
   };
 
   // Separate items by type
@@ -185,7 +197,7 @@ export default function Store() {
                     <MerchPackCard
                       product={merchPack}
                       onAddToCart={handleAddToCart}
-                      onOpenSizeChart={() => openSizeChart("pack")}
+                      onOpenSizeChart={() => openSizeChart(getSizeChartTypeForPack(merchPack))}
                     />
                   </div>
                 </div>
@@ -210,7 +222,6 @@ export default function Store() {
                 product={product}
                 onAddToCart={handleAddToCart}
                 onOpenSizeChart={() => {
-                  // Check if it's an oversized tee by name or add a property to your MERCH_ITEMS
                   const isOversized = product.name.toLowerCase().includes('oversized');
                   openSizeChart(isOversized ? "oversized" : "tshirt");
                 }}
@@ -480,7 +491,6 @@ function ProductCard({
     ? product.images[imageIndex]
     : product.images?.[0];
 
-  // For swipe detection
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const handleQuantityChange = (increment: boolean) => {
@@ -501,7 +511,6 @@ function ProductCard({
     );
   };
 
-  // Swipe handlers
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -511,14 +520,12 @@ function ProductCard({
     const touchEndX = e.changedTouches[0].clientX;
     const diffX = touchStartX - touchEndX;
 
-    // Threshold for swipe
-    if (diffX > 50) handleNextImage(); // Swipe left → next
-    else if (diffX < -50) handlePrevImage(); // Swipe right → previous
+    if (diffX > 50) handleNextImage();
+    else if (diffX < -50) handlePrevImage();
 
     setTouchStartX(null);
   };
 
-  // Convert price to number for display
   const displayPrice =
     typeof product.price === "string"
       ? parseFloat(product.price.replace(/[^\d.-]/g, ""))
