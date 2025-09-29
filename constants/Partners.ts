@@ -16,7 +16,7 @@ export const mainPartners = [
   },
   {
     name: "Technology Partner",
-    logo: "/partners/kstream.png",
+    logo: "/partners/KStream.png",
     link: "https://www.KStreamtech.com"
   },
   {
@@ -88,7 +88,7 @@ export const otherPartners = [
   },
   {
     name: "Gala Night Photography Partner",
-    logo: "/partners/Nipuna_Kithmal_Photography.png",
+    logo: "/partners/nkp.png",
     // link: "https://www.masholdings.com"
   }
 ];
