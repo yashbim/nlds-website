@@ -17,11 +17,11 @@ export const mainPartners = [
   {
     name: "Technology Partner",
     logo: "/partners/kstream.png",
-    link: "https://www.kstreamtech.com"
+    link: "https://www.KStreamtech.com"
   },
   {
     name: "Banner Partner",
-    logo: "/partners/omega_line.png",
+    logo: "/partners/Omega_Line.png",
     // link: "https://www.masholdings.com"
   },
   {
