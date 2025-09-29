@@ -4,10 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Client } from 'node-mailjet';
 import { db } from '@/lib/yugabyte';
 
-const mailjet = new Client({
-  apiKey: process.env.MAILJET_API_KEY!,
-  apiSecret: process.env.MAILJET_SECRET_KEY!
-});
+// Lazily initialize Mailjet client inside the request handler to avoid build-time
+// errors when MAILJET credentials are not present.
 
 interface CartItem {
   id: string;
@@ -353,14 +351,31 @@ export async function POST(request: NextRequest) {
     // Check if order contains merch packs for email subject
     const hasMerchPack = customerData.cartItems.some(item => item.isMerchPack);
 
-    // Send email via Mailjet
+    // Send email via Mailjet (guarded by env presence)
+    const mailjetApiKey = process.env.MAILJET_API_KEY;
+    const mailjetSecret = process.env.MAILJET_SECRET_KEY;
+    const mailjetFrom = process.env.MAILJET_FROM_EMAIL;
+
+    if (!mailjetApiKey || !mailjetSecret || !mailjetFrom) {
+      await updateEmailSentStatus(orderId, false);
+      return NextResponse.json({ 
+        success: true, 
+        message: 'Order saved. Email service not configured.',
+        orderId: orderId,
+        dbOrderId: dbOrderId,
+        hasMerchPack: hasMerchPack
+      });
+    }
+
+    const mailjet = new Client({ apiKey: mailjetApiKey, apiSecret: mailjetSecret });
+
     const emailRequest = await mailjet
       .post('send', { version: 'v3.1' })
       .request({
         Messages: [
           {
             From: {
-              Email: process.env.MAILJET_FROM_EMAIL!,
+              Email: mailjetFrom,
               Name: "NLDS 2025 Store"
             },
             To: [

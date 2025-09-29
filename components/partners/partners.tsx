@@ -36,7 +36,7 @@ export default function PartnersSection() {
 
         {/* Partners Sections */}
         <div className="max-w-7xl mx-auto space-y-20">
-          <PartnersGrid title="Main Partners" partners={mainPartners} />
+          <PartnersGrid title=" " partners={mainPartners} />
           <PartnersGrid title="Refreshments Partners" partners={refreshmentsPartners} />
           <PartnersGrid title="Other Partners" partners={otherPartners} />
         </div>

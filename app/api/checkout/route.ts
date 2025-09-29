@@ -4,7 +4,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazily initialize Resend inside the request handler to avoid build-time errors
+// when RESEND_API_KEY is not set in the environment.
 
 interface CartItem {
   id: string;
@@ -180,7 +181,17 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    // Send email
+    // Send email (guarded by RESEND_API_KEY presence)
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.warn('RESEND_API_KEY is not set. Skipping email send.');
+      return NextResponse.json(
+        { success: true, message: 'Order submitted. Email service not configured.' },
+        { status: 200 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
     const emailData: EmailData = {
       from: 'NLDS Merch <onboarding@resend.dev>', // Resend's default domain
       to: ['nldsmerch@gmail.com'], // Replace with your email
