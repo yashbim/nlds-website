@@ -15,6 +15,11 @@ export const mainPartners = [
     link: "https://www.combank.lk/"
   },
   {
+    name: "Outbound Training Partner",
+    logo: "/partners/Ride.jpg",
+    link: "https://www.combank.lk/"
+  },
+  {
     name: "Technology Partner",
     logo: "/partners/KStream.png",
     link: "https://www.KStreamtech.com"
@@ -77,8 +82,18 @@ export const otherPartners = [
     // link: "https://www.masholdings.com"
   },
   {
+    name: "Digital Experience Partner",
+    logo: "/partners/SEN.jpg",
+    link: "https://www.facebook.com/share/177SgdHsXN/"
+  },
+  {
     name: "Gift Partner",
     logo: "/partners/Bilesma_Natural.jpg",
+    // link: "https://www.masholdings.com"
+  },
+  {
+    name: "Gift Partner",
+    logo: "/partners/Citrus_Resort.png",
     // link: "https://www.masholdings.com"
   },
   {
