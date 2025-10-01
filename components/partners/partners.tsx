@@ -38,7 +38,7 @@ export default function PartnersSection() {
         <div className="max-w-7xl mx-auto space-y-20">
           <PartnersGrid title=" " partners={mainPartners} />
           <PartnersGrid title="Refreshments Partners" partners={refreshmentsPartners} />
-          <PartnersGrid title="Other Partners" partners={otherPartners} />
+          {/* <PartnersGrid title="Other Partners" partners={otherPartners} /> */}
         </div>
       </div>
     </section>

@@ -5,6 +5,11 @@ export const mainPartners = [
     link: "https://www.masholdings.com"
   },
   {
+    name: "National Partner",
+    logo: "/partners/Emerald.png",
+    link: "https://emerald.lk/"
+  },
+  {
     name: "Education Partner",
     logo: "/partners/CA.jpg",
     link: "https://www.casrilanka.com/"
@@ -17,7 +22,12 @@ export const mainPartners = [
   {
     name: "Outbound Training Partner",
     logo: "/partners/Ride.jpg",
-    link: "https://www.combank.lk/"
+    link: "https://www.instagram.com/rideenergydrink/?hl=en"
+  },
+  {
+    name: "Outbound Training Partner",
+    logo: "/partners/Lemon_Puff.png",
+    link: "https://cbllk.com"
   },
   {
     name: "Technology Partner",
@@ -27,7 +37,7 @@ export const mainPartners = [
   {
     name: "Banner Partner",
     logo: "/partners/Omega_Line.png",
-    // link: "https://www.masholdings.com"
+    link: "https://www.oniverse.it/en/world-in-progress/supply-chain/our-production-facilities/our-production-plants/omega"
   },
   {
     name: "Associate Partner",
@@ -43,43 +53,11 @@ export const mainPartners = [
     name: "Student Partner",
     logo: "/partners/ISIC.png",
     link: "https://lms.iscs.lk/"
-  }
-];
-
-
-export const refreshmentsPartners = [
-  {
-    name: "Munchee Lemon Puff",
-    logo: "/partners/Lemon_Puff.png",
-    // link: "https://www.masholdings.com"
   },
-  {
-    name: "Laki Cake Hub",
-    logo: "/partners/Laki_Cake_Hub.jpg",
-    // link: "https://www.masholdings.com"
-  },
-  {
-    name: "Cakes by Vish",
-    logo: "/partners/Cakes_by_Vish.jpg",
-    // link: "https://www.masholdings.com"
-  },
-  {
-    name: "Deligent Delights",
-    logo: "/partners/Deligent_Delights.jpg",
-    // link: "https://www.masholdings.com"
-  },
-  {
-    name: "The Baking Queen",
-    logo: "/partners/The_Baking_Queen.jpg",
-    // link: "https://www.masholdings.com"
-  }
-];
-
-export const otherPartners = [
   {
     name: "Leisure Partner",
     logo: "/partners/Perl_Bay.png",
-    // link: "https://www.masholdings.com"
+    link: "https://www.thepearlbay.com/"
   },
   {
     name: "Digital Experience Partner",
@@ -89,21 +67,54 @@ export const otherPartners = [
   {
     name: "Gift Partner",
     logo: "/partners/Bilesma_Natural.jpg",
-    // link: "https://www.masholdings.com"
+    link: "http://facebook.com/bilesmanatural?mibextid=ZbWKwL"
   },
   {
     name: "Gift Partner",
     logo: "/partners/Citrus_Resort.png",
-    // link: "https://www.masholdings.com"
+    link: "https://www.citrusleisure.com/"
+  },
+  {
+    name: "Gift Partner",
+    logo: "/partners/Resh.jpg",
+    link: "http://facebook.com/share/1CwMPa3oHz/?mibextid=wwXIfr"
   },
   {
     name: "Photography Partner",
     logo: "/partners/Kith_Arts.PNG",
-    // link: "https://www.masholdings.com"
+    link: "http://facebook.com/kithartsphotos?mibextid=wwXIfr"
   },
   {
     name: "Gala Night Photography Partner",
     logo: "/partners/nkp.png",
     // link: "https://www.masholdings.com"
   }
+];
+
+
+export const refreshmentsPartners = [
+  {
+    name: "Laki Cake Hub",
+    logo: "/partners/Laki_Cake_Hub.jpg",
+    // link: "https://www.masholdings.com"
+  },
+  {
+    name: "Cakes by Vish",
+    logo: "/partners/Cakes_by_Vish.jpg",
+    link: "http://facebook.com/share/1K7nbQSFFk/"
+  },
+  {
+    name: "Deligent Delights",
+    logo: "/partners/Deligent_Delights.jpg",
+    // link: "https://www.masholdings.com"
+  },
+  {
+    name: "The Baking Queen",
+    logo: "/partners/The_Baking_Queen.jpg",
+    link: "http://instagram.com/thebakingqueen_14?igsh=MTllZWdlYTZnd2RwYg=="
+  }
+];
+
+export const otherPartners = [
+  
 ];
