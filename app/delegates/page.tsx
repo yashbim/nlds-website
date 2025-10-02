@@ -14,8 +14,6 @@ export default function Home() {
       <div className="min-h-screen bg-black text-white">
       {/* <Navbar /> */}
       <RoomSearch />
-      {/* <RegistrationsClosed /> */}
-      {/* <RegisterSection /> */}
       <Footer />
       
     </div>
