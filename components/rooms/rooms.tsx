@@ -13,9 +13,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "236",
     occupants: [
-      { name: "Lakshitha Wijethunga", entity: "Ruhuna", phoneNo: "94767594953" },
-      { name: "Uditha Ranasinghe", entity: "Ruhuna", phoneNo: "94772182472" },
-      { name: "Linal Hansana", entity: "Ruhuna", phoneNo: "94704537041" }
+      { name: "Lakshitha Wijethunga", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Uditha Ranasinghe", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Linal Hansana", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Lakshitha Wijethunga",
@@ -23,9 +23,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "237",
     occupants: [
-      { name: "Mahima Yasas", entity: "USJ", phoneNo: "94766355536" },
-      { name: "Tharuka Gunarathne", entity: "USJ", phoneNo: "94767575568" },
-      { name: "Dulain Jayasumana", entity: "USJ", phoneNo: "94701506924" }
+      { name: "Mahima Yasas", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Tharuka Gunarathne", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Dulain Jayasumana", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Mahima Yasas",
@@ -33,9 +33,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "238",
     occupants: [
-      { name: "Chelaka Wijesekara", entity: "SLIIT", phoneNo: "94769430928" },
-      { name: "Dilum Kalubowila", entity: "SLIIT", phoneNo: "94711920878" },
-      { name: "Yenul Perera", entity: "SLIIT", phoneNo: "94774791096" }
+      { name: "Chelaka Wijesekara", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Dilum Kalubowila", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Yenul Perera", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Chelaka Wijesekara",
@@ -43,7 +43,7 @@ const PROJECTS: Project[] = [
   {
     roomNo: "239",
     occupants: [
-      { name: "Godfri John", entity: "CC", phoneNo: "94787093942" }
+      { name: "Godfri John", entity: "CC", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Godfri John",
@@ -51,9 +51,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "240",
     occupants: [
-      { name: "Mohamad Shaahid", entity: "NSBM", phoneNo: "94707260460" },
-      { name: "Yehan Namarathna", entity: "NSBM", phoneNo: "94716135868" },
-      { name: "Vismitha Gunasekara", entity: "NSBM", phoneNo: "94788298929" }
+      { name: "Mohamad Shaahid", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Yehan Namarathna", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Vismitha Gunasekara", entity: "NSBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Mohamad Shaahid",
@@ -61,9 +61,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "241",
     occupants: [
-      { name: "Lahiru Dinusha", entity: "Kandy", phoneNo: "94767208047" },
-      { name: "Sudeera Jayarathna", entity: "Kandy", phoneNo: "94779708258" },
-      { name: "Vihanga Deemantha", entity: "Kandy", phoneNo: "94771141262" }
+      { name: "Lahiru Dinusha", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Sudeera Jayarathna", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Vihanga Deemantha", entity: "Kandy", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Lahiru Dinusha",
@@ -71,9 +71,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "242",
     occupants: [
-      { name: "Divya Dulanjali", entity: "NIBM", phoneNo: "94776022600" },
-      { name: "Pamali Amesha", entity: "NIBM", phoneNo: "94704202837" },
-      { name: "Heshani Navodya", entity: "NIBM", phoneNo: "94725292660" }
+      { name: "Divya Dulanjali", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Pamali Amesha", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Heshani Navodya", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Divya Dulanjali",
@@ -81,9 +81,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "243",
     occupants: [
-      { name: "Sadavi Kuruwitaarachchige", entity: "CN", phoneNo: "94776427122" },
-      { name: "Viduni Kongahage", entity: "CN", phoneNo: "94717593972" },
-      { name: "Navodya Thilini", entity: "CN", phoneNo: "94760217270" }
+      { name: "Sadavi Kuruwitaarachchige", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Viduni Kongahage", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Navodya Thilini", entity: "CN", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Sadavi Kuruwitaarachchige",
@@ -91,9 +91,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "244",
     occupants: [
-      { name: "Mahendri Hemachandra", entity: "Wayamba", phoneNo: "94761265503" },
-      { name: "Chamodya Bandarawatta", entity: "Wayamba", phoneNo: "94766966488" },
-      { name: "Subodha Emanuwel", entity: "Wayamba", phoneNo: "94713432024" }
+      { name: "Mahendri Hemachandra", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Chamodya Bandarawatta", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Subodha Emanuwel", entity: "Wayamba", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Mahendri Hemachandra",
@@ -101,9 +101,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "245",
     occupants: [
-      { name: "Aamina Riffath", entity: "Rajarata", phoneNo: "94774144786" },
-      { name: "Kavindhya Malshani", entity: "Rajarata", phoneNo: "94709039863" },
-      { name: "Amoda Fernando", entity: "Rajarata", phoneNo: "94717664227" }
+      { name: "Aamina Riffath", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Kavindhya Malshani", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Amoda Fernando", entity: "Rajarata", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Aamina Riffath",
@@ -111,9 +111,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "250",
     occupants: [
-      { name: "Minangi Jayasinghe", entity: "CS", phoneNo: "94714158559" },
-      { name: "Savithmi Minsaree", entity: "CS", phoneNo: "94706970740" },
-      { name: "Poojanee Weerasena", entity: "CS", phoneNo: "94702276237" }
+      { name: "Minangi Jayasinghe", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Savithmi Minsaree", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Poojanee Weerasena", entity: "CS", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Minangi Jayasinghe",
@@ -121,9 +121,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "251",
     occupants: [
-      { name: "Shenan Nathaniel", entity: "USJ", phoneNo: "94769248763" },
-      { name: "Sasith Vishwa Darshana", entity: "CN", phoneNo: "94740862458" },
-      { name: "Vishwa Kaushalya", entity: "CS", phoneNo: "94726544878" }
+      { name: "Shenan Nathaniel", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Sasith Vishwa Darshana", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Vishwa Kaushalya", entity: "CS", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Shenan Nathaniel",
@@ -131,9 +131,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "252",
     occupants: [
-      { name: "Sakila Thejana", entity: "Rajarata", phoneNo: "94702061844" },
-      { name: "Bhanuka Induwara", entity: "CN", phoneNo: "94703820350" },
-      { name: "Amzal Foumi", entity: "SLIIT", phoneNo: "94701588018" }
+      { name: "Sakila Thejana", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Bhanuka Induwara", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Amzal Foumi", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Sakila Thejana",
@@ -141,9 +141,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "253",
     occupants: [
-      { name: "Kalindu De Silva", entity: "CN", phoneNo: "94772216647" },
-      { name: "Mevinu Liyanage", entity: "CS", phoneNo: "94743686140" },
-      { name: "Dinil Hansara", entity: "USJ", phoneNo: "94715565890" }
+      { name: "Kalindu De Silva", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Mevinu Liyanage", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Dinil Hansara", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Kalindu De Silva",
@@ -151,9 +151,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "254",
     occupants: [
-      { name: "Imindu Jayasekara", entity: "CS", phoneNo: "94760595305" },
-      { name: "Yeshan KP", entity: "SLIIT", phoneNo: "94766035565" },
-      { name: "Kavindu Prabhash", entity: "Wayamba", phoneNo: "94750268992" }
+      { name: "Imindu Jayasekara", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Yeshan KP", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Kavindu Prabhash", entity: "Wayamba", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Imindu Jayasekara",
@@ -161,9 +161,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "255",
     occupants: [
-      { name: "Ravinesh Perera", entity: "CS", phoneNo: "94774338021" },
-      { name: "Harith Sandundeniya", entity: "CN", phoneNo: "94750750252" },
-      { name: "Sabeelur Rashaad Mohamed Razeen", entity: "SLIIT", phoneNo: "94774226876" }
+      { name: "Ravinesh Perera", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Harith Sandundeniya", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Sabeelur Rashaad Mohamed Razeen", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Ravinesh Perera",
@@ -171,9 +171,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "256",
     occupants: [
-      { name: "Janindu Hasanka", entity: "SLIIT", phoneNo: "94763021483" },
-      { name: "Rumeth Amarasiri", entity: "CN", phoneNo: "94701550547" },
-      { name: "Supun Jayasinghe", entity: "Ruhuna", phoneNo: "94776900119" }
+      { name: "Janindu Hasanka", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Rumeth Amarasiri", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Supun Jayasinghe", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Janindu Hasanka",
@@ -181,9 +181,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "257",
     occupants: [
-      { name: "Saneesha Dulhara", entity: "Wayamba", phoneNo: "94786719717" },
-      { name: "Yuneth Withanachchi", entity: "CN", phoneNo: "94773677822" },
-      { name: "Dishan Bashitha", entity: "CS", phoneNo: "94760868809" }
+      { name: "Saneesha Dulhara", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Yuneth Withanachchi", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Dishan Bashitha", entity: "CS", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Saneesha Dulhara",
@@ -191,9 +191,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "258",
     occupants: [
-      { name: "Kavindu Madushan", entity: "NIBM", phoneNo: "94701618355" },
-      { name: "Vihan Hettiarachchi", entity: "CS", phoneNo: "94702607679" },
-      { name: "Dileepa Bandara", entity: "USJ", phoneNo: "94761273695" },
+      { name: "Kavindu Madushan", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Vihan Hettiarachchi", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Dileepa Bandara", entity: "USJ", phoneNo: "xxxxxxxxxx" },
       ],
     gender: "Male",
     keyHolder: "Kavindu Madushan",
@@ -201,9 +201,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "259",
     occupants: [
-      { name: "Dahamya Vinradi", entity: "SLIIT", phoneNo: "94703810059" },
-      { name: "Fathima Isthikar", entity: "Kandy", phoneNo: "94729211093" },
-      { name: "Jayashni Rodrigo", entity: "USJ", phoneNo: "94763105304" }
+      { name: "Dahamya Vinradi", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Fathima Isthikar", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Jayashni Rodrigo", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Dahamya Vinradi",
@@ -211,8 +211,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "260",
     occupants: [
-      { name: "Harithanjali Weerakkody", entity: "Rajarata", phoneNo: "94702426576" },
-      { name: "Umayangana Madurawala", entity: "CN", phoneNo: "94743585702" }
+      { name: "Harithanjali Weerakkody", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Umayangana Madurawala", entity: "CN", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Harithanjali Weerakkody",
@@ -220,8 +220,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "261",
     occupants: [
-      { name: "Venuki Wijeratne", entity: "NIBM", phoneNo: "94782998998" },
-      { name: "Nilma Malkini", entity: "CN", phoneNo: "94762130406" }
+      { name: "Venuki Wijeratne", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Nilma Malkini", entity: "CN", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Venuki Wijeratne",
@@ -229,8 +229,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "262",
     occupants: [
-      { name: "Senaya Dharmadasa", entity: "Ruhuna", phoneNo: "94775801320" },
-      { name: "Kethaki Wijesooriya", entity: "CN", phoneNo: "94776799200" }
+      { name: "Senaya Dharmadasa", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Kethaki Wijesooriya", entity: "CN", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Senaya Dharmadasa",
@@ -238,8 +238,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "263",
     occupants: [
-      { name: "Dinuki Masakorala", entity: "USJ", phoneNo: "94771410592" },
-      { name: "Lakshajini Ruparajan", entity: "Kandy", phoneNo: "94772160467" }
+      { name: "Dinuki Masakorala", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Lakshajini Ruparajan", entity: "Kandy", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Dinuki Masakorala",
@@ -247,9 +247,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "264",
     occupants: [
-      { name: "Rashmika Guruge", entity: "CN", phoneNo: "94716536353" },
-      { name: "Gayani Malalgoda", entity: "SLIIT", phoneNo: "94774405237" },
-      { name: "Savandi Liyanayapa", entity: "USJ", phoneNo: "94711496849" }
+      { name: "Rashmika Guruge", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Gayani Malalgoda", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Savandi Liyanayapa", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Rashmika Guruge",
@@ -257,8 +257,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "265",
     occupants: [
-      { name: "Leeza Gilbert", entity: "NSBM", phoneNo: "94766007514" },
-      { name: "Sanumi Nimethra", entity: "Ruhuna", phoneNo: "94701583016" }
+      { name: "Leeza Gilbert", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Sanumi Nimethra", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Leeza Gilbert",
@@ -266,8 +266,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "266",
     occupants: [
-      { name: "Nadali Hansani", entity: "SLIIT", phoneNo: "94716946480" },
-      { name: "Samadhi Hemantha", entity: "CN", phoneNo: "94705574044" }
+      { name: "Nadali Hansani", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Samadhi Hemantha", entity: "CN", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Nadali Hansani",
@@ -275,9 +275,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "267",
     occupants: [
-      { name: "Dineth Wijesuriya", entity: "Ruhuna", phoneNo: "94702669006" },
-      { name: "Rashdhan Mohomed", entity: "CN", phoneNo: "94764115733" },
-      { name: "Ishan Balasooriya", entity: "CS", phoneNo: "94702262003" },
+      { name: "Dineth Wijesuriya", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Rashdhan Mohomed", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Ishan Balasooriya", entity: "CS", phoneNo: "xxxxxxxxxx" },
       ],
     gender: "Male",
     keyHolder: "Dineth Wijesuriya",
@@ -285,9 +285,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "268",
     occupants: [
-      { name: "Thisara Kawinda", entity: "USJ", phoneNo: "94779010683" },
-      { name: "Anuja Mahamalage", entity: "CS", phoneNo: "94701505650" },
-      { name: "Tharindu Widanagama", entity: "NIBM", phoneNo: "94710562603" }
+      { name: "Thisara Kawinda", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Anuja Mahamalage", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Tharindu Widanagama", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Thisara Kawinda",
@@ -295,10 +295,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "269",
     occupants: [
-      { name: "Dulen Withanage", entity: "CS", phoneNo: "94717684052" },
-      { name: "Damith Wijemanna", entity: "CN", phoneNo: "94778699927" },
-      { name: "Shamli Bin Jameel", entity: "SLIIT", phoneNo: "94762513357" },
-      { name: "Srimuralitharan Elilavan", entity: "Ruhuna", phoneNo: "94706007580" }
+      { name: "Dulen Withanage", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Damith Wijemanna", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Shamli Bin Jameel", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Srimuralitharan Elilavan", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Dulen Withanage",
@@ -306,10 +306,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "270",
     occupants: [
-      { name: "Raj Waidyasekara", entity: "CS", phoneNo: "94714225445" },
-      { name: "Thisara Randam", entity: "Rajarata", phoneNo: "94761991541" },
-      { name: "Thumal Kariyapperuma", entity: "Wayamba", phoneNo: "94788451504" },
-      { name: "Bawantha Jayanath", entity: "SLIIT", phoneNo: "94763368848" }
+      { name: "Raj Waidyasekara", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Thisara Randam", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Thumal Kariyapperuma", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Bawantha Jayanath", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Raj Waidyasekara",
@@ -317,10 +317,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "271",
     occupants: [
-      { name: "Nadun Weerakkody", entity: "SLIIT", phoneNo: "94717439912" },
-      { name: "Tilan Eranga", entity: "CN", phoneNo: "94781777611" },
-      { name: "Balamurali Pakeetharan", entity: "Wayamba", phoneNo: "94771910998" },
-      { name: "Induwara Lakthila", entity: "Ruhuna", phoneNo: "94763952940" }
+      { name: "Nadun Weerakkody", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Tilan Eranga", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Balamurali Pakeetharan", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Induwara Lakthila", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Nadun Weerakkody",
@@ -328,10 +328,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "272",
     occupants: [
-      { name: "Mihan Ekanayake", entity: "NIBM", phoneNo: "94716865034" },
-      { name: "Benjamin Gnanapragasam", entity: "CN", phoneNo: "94740553044" },
-      { name: "Methal Abeywickrama", entity: "CS", phoneNo: "94710464985" },
-      { name: "Sandaru Dissanayake", entity: "Ruhuna", phoneNo: "94770040360" }
+      { name: "Mihan Ekanayake", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Benjamin Gnanapragasam", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Methal Abeywickrama", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Sandaru Dissanayake", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Mihan Ekanayake",
@@ -339,10 +339,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "273",
     occupants: [
-      { name: "Adithya Kalhan", entity: "USJ", phoneNo: "94775734259" },
-      { name: "Janindu Wijesinghe", entity: "CN", phoneNo: "94723367936" },
-      { name: "Aflal Zahreen", entity: "NIBM", phoneNo: "94710416000" },
-      { name: "Manindu Upek", entity: "Ruhuna", phoneNo: "94701775749" }
+      { name: "Adithya Kalhan", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Janindu Wijesinghe", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Aflal Zahreen", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Manindu Upek", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Adithya Kalhan",
@@ -350,10 +350,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "274",
     occupants: [
-      { name: "Jemima Mohamed", entity: "USJ", phoneNo: "94772198975" },
-      { name: "Kasundi Sanara", entity: "SLIIT", phoneNo: "94719166045" },
-      { name: "A.B.Shishanika Kavindya", entity: "Ruhuna", phoneNo: "94719415975" },
-      { name: "Subanki Subaschandran", entity: "NIBM", phoneNo: "94769620635" }
+      { name: "Jemima Mohamed", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Kasundi Sanara", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "A.B.Shishanika Kavindya", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Subanki Subaschandran", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Jemima Mohamed",
@@ -361,10 +361,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "275",
     occupants: [
-      { name: "Christy Binni", entity: "Kandy", phoneNo: "94768091121" },
-      { name: "Uthpala Kalupathirana", entity: "CN", phoneNo: "94757114093" },
-      { name: "Puravi Kulathunga", entity: "CC", phoneNo: "94711386658" },
-      { name: "Minethma Wickramasinghe", entity: "USJ", phoneNo: "94760456144" }
+      { name: "Christy Binni", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Uthpala Kalupathirana", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Puravi Kulathunga", entity: "CC", phoneNo: "xxxxxxxxxx" },
+      { name: "Minethma Wickramasinghe", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Christy Binni",
@@ -372,10 +372,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "276",
     occupants: [
-      { name: "Manisha Selvanayagam", entity: "CC", phoneNo: "94742933039" },
-      { name: "Minduli Atapattu", entity: "CN", phoneNo: "94771994835" },
-      { name: "Methya Weeraratne", entity: "NSBM", phoneNo: "94760733788" },
-      { name: "Devmi Galagedara", entity: "USJ", phoneNo: "94740994528" }
+      { name: "Manisha Selvanayagam", entity: "CC", phoneNo: "xxxxxxxxxx" },
+      { name: "Minduli Atapattu", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Methya Weeraratne", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Devmi Galagedara", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Manisha Selvanayagam",
@@ -383,10 +383,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "277",
     occupants: [
-      { name: "Pavani Attanayake", entity: "CN", phoneNo: "94771627915" },
-      { name: "Sanduni Wijekoon", entity: "CS", phoneNo: "94703183050" },
-      { name: "Sehansa Palliyaguru", entity: "NSBM", phoneNo: "94740448286" },
-      { name: "Disandi Sandithna", entity: "Ruhuna", phoneNo: "94743377431" }
+      { name: "Pavani Attanayake", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Sanduni Wijekoon", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Sehansa Palliyaguru", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Disandi Sandithna", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Pavani Attanayake",
@@ -394,10 +394,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "278",
     occupants: [
-      { name: "Savidya Wijayakulasooriya", entity: "NSBM", phoneNo: "94705282925" },
-      { name: "Nethmi Maduhara", entity: "CN", phoneNo: "94763533485" },
-      { name: "Maheesha Deraniyagala", entity: "CC", phoneNo: "94762404517" },
-      { name: "Pethara Ranasinghe", entity: "SLIIT", phoneNo: "94741993650" }
+      { name: "Savidya Wijayakulasooriya", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Nethmi Maduhara", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Maheesha Deraniyagala", entity: "CC", phoneNo: "xxxxxxxxxx" },
+      { name: "Pethara Ranasinghe", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Savidya Wijayakulasooriya",
@@ -405,10 +405,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "279",
     occupants: [
-      { name: "Dinithi Thilakaratne", entity: "CS", phoneNo: "94761891878" },
-      { name: "Tracey Johnson", entity: "NSBM", phoneNo: "94760325677" },
-      { name: "Chamie Ranawakaarachchi", entity: "Ruhuna", phoneNo: "94778751214" },
-      { name: "Pumuthu Weerakoon", entity: "USJ", phoneNo: "94761020132" }
+      { name: "Dinithi Thilakaratne", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Tracey Johnson", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Chamie Ranawakaarachchi", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Pumuthu Weerakoon", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Dinithi Thilakaratne",
@@ -416,10 +416,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "280",
     occupants: [
-      { name: "Chamlika Wijesinghe", entity: "CN", phoneNo: "94761429338" },
-      { name: "Bumini Uyanahewa", entity: "CC", phoneNo: "94765787899" },
-      { name: "Kithmini Hettiarachchi", entity: "Ruhuna", phoneNo: "94702707583" },
-      { name: "Navapriyah Krishnan", entity: "USJ", phoneNo: "94750553351" }
+      { name: "Chamlika Wijesinghe", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Bumini Uyanahewa", entity: "CC", phoneNo: "xxxxxxxxxx" },
+      { name: "Kithmini Hettiarachchi", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Navapriyah Krishnan", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Chamlika Wijesinghe",
@@ -427,10 +427,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "281",
     occupants: [
-      { name: "Amasha Fernando", entity: "CN", phoneNo: "94716168872" },
-      { name: "Dinidi Senanayake", entity: "SLIIT", phoneNo: "94766388408" },
-      { name: "CHITHMI NAVODYA", entity: "Ruhuna", phoneNo: "94782498942" },
-      { name: "Upetha Ariyarathne", entity: "USJ", phoneNo: "94711125295" }
+      { name: "Amasha Fernando", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Dinidi Senanayake", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "CHITHMI NAVODYA", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Upetha Ariyarathne", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Amasha Fernando",
@@ -438,10 +438,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "282",
     occupants: [
-      { name: "Kavindya Bandara", entity: "Wayamba", phoneNo: "94765493421" },
-      { name: "Sachini Rajapaksha", entity: "CN", phoneNo: "94763614876" },
-      { name: "Thehasa Hewavitharana", entity: "NSBM", phoneNo: "94717938936" },
-      { name: "Pumudi Peduruarachchi", entity: "USJ", phoneNo: "94742328666" }
+      { name: "Kavindya Bandara", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Sachini Rajapaksha", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Thehasa Hewavitharana", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Pumudi Peduruarachchi", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Kavindya Bandara",
@@ -449,10 +449,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "283",
     occupants: [
-      { name: "Madhunishaa Yogendran", entity: "NIBM", phoneNo: "94775429433" },
-      { name: "Shimasha Manawadu", entity: "CN", phoneNo: "94703926342" },
-      { name: "Sadeeshie Ravindya", entity: "Ruhuna", phoneNo: "94774982239" },
-      { name: "Gimhani Jayasekara", entity: "USJ", phoneNo: "94703400336" }
+      { name: "Madhunishaa Yogendran", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Shimasha Manawadu", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Sadeeshie Ravindya", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Gimhani Jayasekara", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Madhunishaa Yogendran",
@@ -460,10 +460,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "284",
     occupants: [
-      { name: "Tharuka Fernando", entity: "Ruhuna", phoneNo: "94776371756" },
-      { name: "Navoda Sandamini", entity: "Wayamba", phoneNo: "94776293098" },
-      { name: "Kavini Wijesiriwardena", entity: "SLIIT", phoneNo: "94712140436" },
-      { name: "Limantha Adikari", entity: "NSBM", phoneNo: "94701408627" }
+      { name: "Tharuka Fernando", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Navoda Sandamini", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Kavini Wijesiriwardena", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Limantha Adikari", entity: "NSBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Tharuka Fernando",
@@ -471,10 +471,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "285",
     occupants: [
-      { name: "H.A.Promodi maheshika", entity: "Wayamba", phoneNo: "94765851795" },
-      { name: "Oshadi Liyanage", entity: "CS", phoneNo: "94702502890" },
-      { name: "Sayumi Ekanayake", entity: "NSBM", phoneNo: "94719369539" },
-      { name: "Duwasha Algama", entity: "USJ", phoneNo: "94704533048" }
+      { name: "H.A.Promodi maheshika", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Oshadi Liyanage", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Sayumi Ekanayake", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Duwasha Algama", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "H.A.Promodi maheshika",
@@ -482,10 +482,10 @@ const PROJECTS: Project[] = [
   {
     roomNo: "286",
     occupants: [
-      { name: "Shinthurie Markandakuganathan", entity: "CS", phoneNo: "94760028575" },
-      { name: "Nirmani Weerakoon", entity: "CN", phoneNo: "94703416997" },
-      { name: "Anjalee perera", entity: "NSBM", phoneNo: "94775732437" },
-      { name: "Malithi Dharmasiri", entity: "USJ", phoneNo: "94774144673" }
+      { name: "Shinthurie Markandakuganathan", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Nirmani Weerakoon", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Anjalee perera", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Malithi Dharmasiri", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Shinthurie Markandakuganathan",
@@ -493,9 +493,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "287",
     occupants: [
-      { name: "Amani Jayasekara", entity: "Rajarata", phoneNo: "94754074725" },
-      { name: "Hansika Bandara", entity: "CN", phoneNo: "94764803345" },
-      { name: "Bavisyanthe Shanmugadas", entity: "Ruhuna", phoneNo: "94741770192" }
+      { name: "Amani Jayasekara", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Hansika Bandara", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Bavisyanthe Shanmugadas", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Amani Jayasekara",
@@ -503,9 +503,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "288",
     occupants: [
-      { name: "Vihangi Ranaweera", entity: "USJ", phoneNo: "94705031384" },
-      { name: "Zahra Bathool", entity: "Kandy", phoneNo: "94741123891" },
-      { name: "Imaya Jayarathna", entity: "USJ", phoneNo: "94776674606" }
+      { name: "Vihangi Ranaweera", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Zahra Bathool", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Imaya Jayarathna", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Vihangi Ranaweera",
@@ -513,9 +513,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "289",
     occupants: [
-      { name: "Thisuni Kuruwitaarachchige", entity: "CS", phoneNo: "94706633546" },
-      { name: "Nayanalochana Handapangoda", entity: "NSBM", phoneNo: "94775227140" },
-      { name: "Mithuni Nadeesha", entity: "Ruhuna", phoneNo: "94743731948" }
+      { name: "Thisuni Kuruwitaarachchige", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Nayanalochana Handapangoda", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Mithuni Nadeesha", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Thisuni Kuruwitaarachchige",
@@ -523,9 +523,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "290",
     occupants: [
-      { name: "Nawoda Uththarani", entity: "Wayamba", phoneNo: "94711348416" },
-      { name: "Sachini Gunawardhana", entity: "CN", phoneNo: "94785533463" },
-      { name: "Monali Edirisinghe", entity: "SLIIT", phoneNo: "94742430091" }
+      { name: "Nawoda Uththarani", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Sachini Gunawardhana", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Monali Edirisinghe", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Nawoda Uththarani",
@@ -533,9 +533,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "291",
     occupants: [
-      { name: "Methara Wanigasinghe", entity: "CN", phoneNo: "94706884002" },
-      { name: "Shahnaas Rafi", entity: "Kandy", phoneNo: "94740993634" },
-      { name: "Gayathmee Perera", entity: "USJ", phoneNo: "94766330511" }
+      { name: "Methara Wanigasinghe", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Shahnaas Rafi", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Gayathmee Perera", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Methara Wanigasinghe",
@@ -543,9 +543,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "292",
     occupants: [
-      { name: "Raveesha Bandara", entity: "SLIIT", phoneNo: "94763418889" },
-      { name: "Dilthara de Silva", entity: "CN", phoneNo: "94763948894" },
-      { name: "Melanie Dassanayake", entity: "USJ", phoneNo: "94725007922" }
+      { name: "Raveesha Bandara", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Dilthara de Silva", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Melanie Dassanayake", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Raveesha Bandara",
@@ -553,8 +553,8 @@ const PROJECTS: Project[] = [
   {
     roomNo: "293",
     occupants: [
-      { name: "Dinithi Pamudika", entity: "NIBM", phoneNo: "94701505609" },
-      { name: "Imandi Amalna", entity: "Rajarata", phoneNo: "94777426076" }
+      { name: "Dinithi Pamudika", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Imandi Amalna", entity: "Rajarata", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Dinithi Pamudika",
@@ -562,9 +562,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "294",
     occupants: [
-      { name: "Sachinthani Ketakumbura", entity: "CN", phoneNo: "94702182939" },
-      { name: "Vinuli Gunaratne", entity: "NSBM", phoneNo: "94742655177" },
-      { name: "Methpani Rathnayake", entity: "Ruhuna", phoneNo: "94702420113" }
+      { name: "Sachinthani Ketakumbura", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Vinuli Gunaratne", entity: "NSBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Methpani Rathnayake", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Sachinthani Ketakumbura",
@@ -572,9 +572,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "295",
     occupants: [
-      { name: "Nethuli Paranavidana", entity: "NIBM", phoneNo: "94712720917" },
-      { name: "ANUKI VIMAYA ADIKARI", entity: "Rajarata", phoneNo: "94703968501" },
-      { name: "Dinadi Jayathilaka", entity: "SLIIT", phoneNo: "94760006189" }
+      { name: "Nethuli Paranavidana", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "ANUKI VIMAYA ADIKARI", entity: "Rajarata", phoneNo: "xxxxxxxxxx" },
+      { name: "Dinadi Jayathilaka", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Nethuli Paranavidana",
@@ -582,9 +582,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "296",
     occupants: [
-      { name: "Imelsha Fernando Aththachchi", entity: "Wayamba", phoneNo: "94763556275" },
-      { name: "Samindi Keel", entity: "CN", phoneNo: "94763034975" },
-      { name: "Samithri Miulandi Gunasekara", entity: "NIBM", phoneNo: "94784370627" }
+      { name: "Imelsha Fernando Aththachchi", entity: "Wayamba", phoneNo: "xxxxxxxxxx" },
+      { name: "Samindi Keel", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Samithri Miulandi Gunasekara", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Imelsha Fernando Aththachchi",
@@ -592,9 +592,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "297",
     occupants: [
-      { name: "Samadhi Wadithya", entity: "CN", phoneNo: "94775943287" },
-      { name: "Omali Weerasinghe", entity: "SLIIT", phoneNo: "94710568010" },
-      { name: "Hashini Hapuarachchi", entity: "NIBM", phoneNo: "94741903553" }
+      { name: "Samadhi Wadithya", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Omali Weerasinghe", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Hashini Hapuarachchi", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Samadhi Wadithya",
@@ -602,9 +602,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "298",
     occupants: [
-      { name: "Dinuri Geeganage", entity: "CN", phoneNo: "94716290834" },
-      { name: "Ayshah Shaheed", entity: "Ruhuna", phoneNo: "94773181478" },
-      { name: "Hani Rudhthiya", entity: "NIBM", phoneNo: "94778548068" }
+      { name: "Dinuri Geeganage", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Ayshah Shaheed", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Hani Rudhthiya", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Dinuri Geeganage",
@@ -612,9 +612,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "299",
     occupants: [
-      { name: "Nethma Dewmini", entity: "CN", phoneNo: "94767323946" },
-      { name: "Senugi Mendis", entity: "CS", phoneNo: "94705732848" },
-      { name: "Shenise Pronk", entity: "SLIIT", phoneNo: "94764684101" }
+      { name: "Nethma Dewmini", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Senugi Mendis", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Shenise Pronk", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Female",
     keyHolder: "Nethma Dewmini",
@@ -622,9 +622,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "300",
     occupants: [
-      { name: "Mishara Athukorala", entity: "CN", phoneNo: "94772048459" },
-      { name: "Ravindu Jayasekara", entity: "CS", phoneNo: "94722523560" },
-      { name: "Savinda Sithum", entity: "SLIIT", phoneNo: "94765460938" }
+      { name: "Mishara Athukorala", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Ravindu Jayasekara", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Savinda Sithum", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Mishara Athukorala",
@@ -632,9 +632,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "301",
     occupants: [
-      { name: "Desandu Wanniarachchi", entity: "CS", phoneNo: "94740950191" },
-      { name: "Vishal Hadharshan", entity: "NIBM", phoneNo: "94762250660" },
-      { name: "Thedapun Wanninaika", entity: "NSBM", phoneNo: "94701727409" }
+      { name: "Desandu Wanniarachchi", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Vishal Hadharshan", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Thedapun Wanninaika", entity: "NSBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Desandu Wanniarachchi",
@@ -642,9 +642,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "302",
     occupants: [
-      { name: "Nikila Silva", entity: "Kandy", phoneNo: "94740776378" },
-      { name: "Mathumithan Arulanantham", entity: "CN", phoneNo: "94772272952" },
-      { name: "Vabeeshan Vasantharajan", entity: "NIBM", phoneNo: "94723872823" }
+      { name: "Nikila Silva", entity: "Kandy", phoneNo: "xxxxxxxxxx" },
+      { name: "Mathumithan Arulanantham", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Vabeeshan Vasantharajan", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Nikila Silva",
@@ -652,9 +652,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "303",
     occupants: [
-      { name: "Yohan Wickramasinghe", entity: "SLIIT", phoneNo: "94760299469" },
-      { name: "Hiran Samahon", entity: "CS", phoneNo: "94763570108" },
-      { name: "Ryan Fonseka", entity: "NIBM", phoneNo: "94719826400" }
+      { name: "Yohan Wickramasinghe", entity: "SLIIT", phoneNo: "xxxxxxxxxx" },
+      { name: "Hiran Samahon", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Ryan Fonseka", entity: "NIBM", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Yohan Wickramasinghe",
@@ -662,9 +662,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "304",
     occupants: [
-      { name: "Oshan Indusara", entity: "NIBM", phoneNo: "94756812492" },
-      { name: "Gayan Kanchana", entity: "Ruhuna", phoneNo: "94718873392" },
-      { name: "Chamin Jayasoma", entity: "USJ", phoneNo: "94710822825" }
+      { name: "Oshan Indusara", entity: "NIBM", phoneNo: "xxxxxxxxxx" },
+      { name: "Gayan Kanchana", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Chamin Jayasoma", entity: "USJ", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Oshan Indusara",
@@ -672,9 +672,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "305",
     occupants: [
-      { name: "Deveen Chandira", entity: "CS", phoneNo: "94772124515" },
-      { name: "Nirmal Dilip", entity: "Ruhuna", phoneNo: "94773685523" },
-      { name: "Kokulan Kugathasan", entity: "SLIIT", phoneNo: "94767520033" }
+      { name: "Deveen Chandira", entity: "CS", phoneNo: "xxxxxxxxxx" },
+      { name: "Nirmal Dilip", entity: "Ruhuna", phoneNo: "xxxxxxxxxx" },
+      { name: "Kokulan Kugathasan", entity: "SLIIT", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Deveen Chandira",
@@ -682,9 +682,9 @@ const PROJECTS: Project[] = [
   {
     roomNo: "306",
     occupants: [
-      { name: "Dinuka Wimalagunasekara", entity: "USJ", phoneNo: "94740901606" },
-      { name: "Ashfaaq Ashrak", entity: "CN", phoneNo: "94717531646" },
-      { name: "Thisuka De Silva", entity: "CS", phoneNo: "94758924827" }
+      { name: "Dinuka Wimalagunasekara", entity: "USJ", phoneNo: "xxxxxxxxxx" },
+      { name: "Ashfaaq Ashrak", entity: "CN", phoneNo: "xxxxxxxxxx" },
+      { name: "Thisuka De Silva", entity: "CS", phoneNo: "xxxxxxxxxx" }
     ],
     gender: "Male",
     keyHolder: "Dinuka Wimalagunasekara",

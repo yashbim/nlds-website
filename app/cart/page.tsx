@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Cart from "@/components/store/Cart";
+import NotFound from "@/components/NotFound";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       </Head>
       <div className="min-h-screen bg-black text-white">
         <Navbar />
-        <Cart />
+        <NotFound />
       </div>
     </>
   );

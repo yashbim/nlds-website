@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
-      {/* <Store /> */}
-      <Store_closed />
+      <Store />
+      {/* <Store_closed /> */}
       <Footer />
     </div>
   );
